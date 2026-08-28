@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dreamy Destiny — A Sweet & Intimate Romance</title>
+  
+  <!-- Fonts: Cormorant Garamond (Serif) & Plus Jakarta Sans (Sans-Serif) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Marked.js CDN for Client-side Markdown Rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+  <!-- Landing Page -->
+  <main class="landing-card">
+    <header class="landing-header">
+      <span class="title-badge">A Web Novel</span>
+      <h1 class="main-title">Dreamy Destiny</h1>
+      <p class="tagline">Some destinies begin quietly.</p>
+      <p class="author-credit">by Snehil Pandey</p>
+    </header>
+
+    <div class="divider"></div>
+
+    <!-- Characters Section -->
+    <section class="section-container">
+      <h2 class="section-title">Main Characters</h2>
+      <div class="character-grid">
+        <div class="character-card">
+          <h3 class="character-name">Muse</h3>
+          <span class="character-role">The Guy</span>
+          <p class="character-desc">Brilliant enough to understand almost everything. Except what Sylvia is doing to his heart.</p>
+        </div>
+        <div class="character-card">
+          <h3 class="character-name">Sylvia</h3>
+          <span class="character-role">The Girl</span>
+          <p class="character-desc">Confident enough to know what she wants. Shy enough to forget how to say it when he's looking at her.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section-container">
+      <h2 class="section-title">Story Overview</h2>
+      <div class="overview-box">
+        <div class="overview-item">
+          <i class="fa-solid fa-sparkles bullet-dot"></i>
+          <div>A multi-chapter story covering the days immediately before their wedding.</div>
+        </div>
+        <div class="overview-item">
+          <i class="fa-solid fa-sparkles bullet-dot"></i>
+          <div>The romance will stay sweet, fluttery and intimate, rather than becoming dramatic for the sake of drama.</div>
+        </div>
+        <div class="overview-item">
+          <i class="fa-solid fa-sparkles bullet-dot"></i>
+          <div>Muse's feelings will mostly be shown through inner thoughts, tiny reactions, awkward decisions and things he notices but never says.</div>
+        </div>
+        <div class="overview-item">
+          <i class="fa-solid fa-sparkles bullet-dot"></i>
+          <div>Sylvia's side will carry more dialogue because she is the clearer, more direct communicator.</div>
+        </div>
+        <div class="overview-item">
+          <i class="fa-solid fa-sparkles bullet-dot"></i>
+          <div>The reader should often understand something about Sylvia before Muse does.</div>
+        </div>
+        <div class="overview-item">
+          <i class="fa-solid fa-sparkles bullet-dot"></i>
+          <div>The next development should not be predictable. Small misunderstandings, unexpected meetings, work interruptions, family moments, and little discoveries will keep changing the rhythm.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Start / Continue Reading CTA Buttons -->
+    <div class="cta-container">
+      <div id="continueReadingBox" class="continue-reading-box" style="display: none;">
+        <button class="btn-start-reading btn-continue" id="btnContinueReading" aria-label="Continue Reading Dreamy Destiny">
+          <i class="fa-solid fa-bookmark btn-icon"></i>
+          <span id="continueBtnText">Continue Reading</span>
+        </button>
+        <div class="progress-pill" id="continueProgressPill">Chapter 1 • 0%</div>
+      </div>
+
+      <button class="btn-start-reading" id="btnStartReading" aria-label="Start Reading Dreamy Destiny">
+        <i class="fa-solid fa-book-open btn-icon"></i> <span id="startBtnLabel">Start Reading</span>
+      </button>
+
+      <div class="settings-link-area">
+        <button class="btn-settings" id="btnOpenSettings" aria-label="Reading Settings">
+          <i class="fa-solid fa-gear"></i> Reader Settings
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Reader Settings Modal Popup Overlay -->
+  <div class="modal-overlay" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
+    <div class="settings-modal-box">
+      <div class="settings-header">
+        <h3 id="settingsModalTitle"><i class="fa-solid fa-sliders"></i> Reader Settings & Storage</h3>
+        <button class="btn-close-modal" id="btnCloseSettings" aria-label="Close Settings">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="settings-body">
+        
+        <!-- PIN Privacy Section -->
+        <div class="settings-group">
+          <h4 class="settings-group-title"><i class="fa-solid fa-lock"></i> Reader PIN Protection</h4>
+          <p class="settings-desc">Optionally lock your saved reading position locally. PIN is verified on your device only.</p>
+
+          <div id="pinStatusText" class="pin-status-text">Status: <span>No PIN Set</span></div>
+
+          <div class="pin-form-group">
+            <input type="password" id="inputPinCode" maxlength="6" placeholder="Enter 4-6 digit PIN" class="pin-input" />
+            <button class="btn-pin-action" id="btnSetPin">Set PIN</button>
+            <button class="btn-pin-action btn-danger" id="btnRemovePin" style="display: none;">Remove PIN</button>
+          </div>
+        </div>
+
+        <!-- Data Management Section -->
+        <div class="settings-group">
+          <h4 class="settings-group-title"><i class="fa-solid fa-database"></i> Storage Management</h4>
+          <p class="settings-desc">Manage local chapter cache and saved position data.</p>
+          <div class="settings-btn-grid">
+            <button class="btn-storage-action" id="btnClearCache"><i class="fa-solid fa-broom"></i> Clear Cached Chapters</button>
+            <button class="btn-storage-action btn-danger" id="btnClearProgress"><i class="fa-solid fa-trash-can"></i> Reset Progress</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PIN Verification Modal Popup -->
+  <div class="modal-overlay" id="pinAuthModal" role="dialog" aria-modal="true">
+    <div class="settings-modal-box pin-auth-box">
+      <div class="settings-header">
+        <h3><i class="fa-solid fa-user-lock"></i> Enter Reader PIN</h3>
+      </div>
+      <div class="settings-body" style="text-align: center;">
+        <p class="settings-desc">Please enter your PIN to access your private reading progress.</p>
+        <input type="password" id="inputAuthPin" maxlength="6" placeholder="Enter PIN" class="pin-input" style="font-size: 1.4rem; text-align: center; letter-spacing: 4px; margin: 16px 0;" />
+        <div style="display: flex; gap: 12px; justify-content: center; margin-top: 10px;">
+          <button class="btn-pin-action" id="btnVerifyPin">Unlock Progress</button>
+          <button class="btn-pin-action btn-secondary" id="btnCancelPinAuth">Cancel</button>
+        </div>
+        <p id="pinAuthError" style="color: var(--accent-rose); font-size: 0.85rem; margin-top: 10px; display: none;"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reader Modal Popup Overlay -->
+  <div class="modal-overlay" id="readerModal" role="dialog" aria-modal="true" aria-labelledby="headerChapTitle">
+    <div class="modal-box">
+      
+      <!-- Reader Header Bar -->
+      <header class="reader-header">
+        <div class="header-left">
+          <button class="btn-hamburger" id="btnToggleDrawer" aria-label="Open Chapter Navigation Drawer" title="Chapter Menu">
+            <i class="fa-solid fa-bars hamburger-icon"></i>
+          </button>
+          <h2 class="reader-chap-title" id="headerChapTitle">Loading Chapter...</h2>
+        </div>
+        <button class="btn-close-modal" id="btnCloseModal" aria-label="Close Reader" title="Close (Esc)">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </header>
+
+      <!-- Reader Main Area (Drawer + Reading Canvas) -->
+      <div class="reader-body">
+        
+        <!-- Side Drawer Chapter Navigation -->
+        <nav class="chapter-drawer" id="chapterDrawer" aria-label="Chapter Menu">
+          <div class="drawer-header">Chapters</div>
+          <div class="drawer-list" id="drawerChapterList">
+            <!-- Dynamically populated via script.js -->
+          </div>
+        </nav>
+
+        <!-- Markdown Reading Canvas -->
+        <main class="reading-area" id="readingArea">
+          <div class="reading-content" id="renderedContent">
+            <!-- Dynamically populated via fetch() and Marked.js -->
+          </div>
+        </main>
+      </div>
+
+      <!-- Reader Footer Controls -->
+      <footer class="reader-footer">
+        <button class="nav-btn" id="btnPrevChap" aria-label="Previous Chapter"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+        <span class="progress-indicator" id="progressIndicator">Chapter 1 / 17</span>
+        <button class="nav-btn" id="btnNextChap" aria-label="Next Chapter">Next <i class="fa-solid fa-arrow-right"></i></button>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- Application Logic -->
+  <script src="script.js"></script>
+</body>
+</html>
