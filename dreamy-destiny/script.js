@@ -5,7 +5,8 @@
 // Chapter Manifest Definitions (First 2 Chapters)
 const CHAPTERS = [
   { id: 1, file: 'dreamy_destiny_01.md', defaultTitle: 'Chapter 1: The Girl in the Apartment' },
-  { id: 2, file: 'dreamy_destiny_02.md', defaultTitle: 'Chapter 2: Two Weeks' }
+  { id: 2, file: 'dreamy_destiny_02.md', defaultTitle: 'Chapter 2: Two Weeks' },
+  { id: 3, file: 'dreamy_destiny_03.md', defaultTitle: 'Chapter 3: The Other Side of the Table' }
 ];
 
 // State Variables
