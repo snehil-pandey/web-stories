@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>How Do We Even Think? — A Short Mysterious Tale</title>
   <meta name="description" content="A short mysterious tale exploring consciousness, stillness, and cosmic curiosity by Snehil Pandey.">
 
@@ -29,24 +29,28 @@
 </head>
 <body>
 
-  <!-- Standard Floating Publication Return Link -->
-  <a href="../" class="pub-back-link" aria-label="Back to The Literary Room">
-    <i class="fa-solid fa-arrow-left"></i>
-    <span>All Stories</span>
-  </a>
+  <!-- Accessible Skip to Story Link -->
+  <a href="#landingMain" class="skip-to-content">Skip to story</a>
 
-  <!-- Dark Mode / Celestial Mood Toggle -->
-  <button class="theme-toggle" id="themeToggle" aria-label="Toggle celestial dark mode">
-    <i class="fas fa-moon"></i>
-    <span>Dark Mode</span>
-  </button>
+  <!-- Top Navigation Bar -->
+  <header class="story-top-nav">
+    <a href="../" class="pub-back-link" aria-label="Back to The Literary Room">
+      <i class="fa-solid fa-arrow-left"></i>
+      <span>All Stories</span>
+    </a>
+
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle celestial dark mode">
+      <i class="fas fa-moon"></i>
+      <span>Dark Mode</span>
+    </button>
+  </header>
 
   <!-- Ambient Glow -->
   <div class="ambient-glow glow-1"></div>
   <div class="ambient-glow glow-2"></div>
 
-  <!-- Story Presentation & Discovery Landing Card (Identical UI structure to Dreamy Destiny) -->
-  <main class="landing-card">
+  <!-- Story Presentation & Discovery Landing Card -->
+  <main class="landing-card" id="landingMain">
     <header class="landing-header">
       <span class="title-badge">A Short Mysterious Tale</span>
       <h1 class="main-title">How Do We Even Think?</h1>
@@ -56,43 +60,7 @@
 
     <div class="divider"></div>
 
-    <!-- Characters Section -->
-    <section class="section-container">
-      <h2 class="section-title">Main Characters</h2>
-      <div class="character-grid">
-        <div class="character-card">
-          <h3 class="character-name">Muse</h3>
-          <span class="character-role">The Protagonist</span>
-          <p class="character-desc">Complicated, sprawled on the cold floor, wondering if the ceiling can blink back into the silence.</p>
-        </div>
-        <div class="character-card">
-          <h3 class="character-name">Mother</h3>
-          <span class="character-role">Reality's Anchor</span>
-          <p class="character-desc">Slipper in hand, zero patience for celestial daydreams when the everyday world calls.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Overview Section -->
-    <section class="section-container">
-      <h2 class="section-title">Story Overview</h2>
-      <div class="overview-box">
-        <div class="overview-item">
-          <i class="fa-solid fa-sparkles bullet-dot"></i>
-          <div>A standalone introspective tale exploring the thin boundary between human thought, memory, and the universe.</div>
-        </div>
-        <div class="overview-item">
-          <i class="fa-solid fa-sparkles bullet-dot"></i>
-          <div>Told through the perspective of a boy lying still on the floor, experiencing a sudden cosmic unraveling of reality.</div>
-        </div>
-        <div class="overview-item">
-          <i class="fa-solid fa-sparkles bullet-dot"></i>
-          <div>Complete single-chapter experience equipped with persistent caching, reading state preservation, and celestial night mode.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Start / Continue Reading CTA Buttons -->
+    <!-- Start / Continue Reading CTA Buttons (Prioritized for Immediate Access) -->
     <div class="cta-container">
       <div id="continueReadingBox" class="continue-reading-box" style="display: none;">
         <button class="btn-start-reading btn-continue" id="btnContinueReading" aria-label="Continue Reading Tale">
@@ -115,6 +83,52 @@
         </button>
       </div>
     </div>
+
+    <!-- Progressive Disclosure Details: Characters and Overview -->
+    <details class="story-details-accordion" open>
+      <summary class="details-summary">
+        <span><i class="fa-regular fa-compass"></i> Characters & Story Background</span>
+        <i class="fa-solid fa-chevron-down summary-arrow"></i>
+      </summary>
+
+      <div class="details-content">
+        <!-- Characters Section -->
+        <section class="section-container">
+          <h2 class="section-title">Main Characters</h2>
+          <div class="character-grid">
+            <div class="character-card">
+              <h3 class="character-name">Muse</h3>
+              <span class="character-role">The Protagonist</span>
+              <p class="character-desc">Complicated, sprawled on the cold floor, wondering if the ceiling can blink back into the silence.</p>
+            </div>
+            <div class="character-card">
+              <h3 class="character-name">Mother</h3>
+              <span class="character-role">Reality's Anchor</span>
+              <p class="character-desc">Slipper in hand, zero patience for celestial daydreams when the everyday world calls.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Overview Section -->
+        <section class="section-container">
+          <h2 class="section-title">Story Overview</h2>
+          <div class="overview-box">
+            <div class="overview-item">
+              <i class="fa-solid fa-sparkles bullet-dot"></i>
+              <div>A standalone introspective tale exploring the thin boundary between human thought, memory, and the universe.</div>
+            </div>
+            <div class="overview-item">
+              <i class="fa-solid fa-sparkles bullet-dot"></i>
+              <div>Told through the perspective of a boy lying still on the floor, experiencing a sudden cosmic unraveling of reality.</div>
+            </div>
+            <div class="overview-item">
+              <i class="fa-solid fa-sparkles bullet-dot"></i>
+              <div>Complete single-chapter experience equipped with persistent caching, reading state preservation, and celestial night mode.</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </details>
   </main>
 
   <!-- Reader Settings Modal Popup Overlay -->

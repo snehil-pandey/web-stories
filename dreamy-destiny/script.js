@@ -80,6 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnContinueReading = document.getElementById('btnContinueReading');
   const btnCloseModal = document.getElementById('btnCloseModal');
   const btnToggleDrawer = document.getElementById('btnToggleDrawer');
+  const btnCloseDrawer = document.getElementById('btnCloseDrawer');
+  const drawerBackdrop = document.getElementById('drawerBackdrop');
   const btnPrevChap = document.getElementById('btnPrevChap');
   const btnNextChap = document.getElementById('btnNextChap');
   const readingArea = document.getElementById('readingArea');
@@ -95,6 +97,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnContinueReading) btnContinueReading.addEventListener('click', () => handleContinueReading());
   if (btnCloseModal) btnCloseModal.addEventListener('click', closeReaderModal);
   if (btnToggleDrawer) btnToggleDrawer.addEventListener('click', toggleDrawer);
+  if (btnCloseDrawer) btnCloseDrawer.addEventListener('click', closeDrawer);
+  if (drawerBackdrop) drawerBackdrop.addEventListener('click', closeDrawer);
   if (btnPrevChap) btnPrevChap.addEventListener('click', () => navigateChapter(-1));
   if (btnNextChap) btnNextChap.addEventListener('click', () => navigateChapter(1));
   if (readingArea) readingArea.addEventListener('scroll', handleThrottledScroll);
@@ -230,12 +234,18 @@ function closeReaderModal() {
 // Drawer Controls
 function toggleDrawer() {
   const drawer = document.getElementById('chapterDrawer');
-  if (drawer) drawer.classList.toggle('open');
+  const backdrop = document.getElementById('drawerBackdrop');
+  if (drawer) {
+    const isOpen = drawer.classList.toggle('open');
+    if (backdrop) backdrop.classList.toggle('active', isOpen);
+  }
 }
 
 function closeDrawer() {
   const drawer = document.getElementById('chapterDrawer');
+  const backdrop = document.getElementById('drawerBackdrop');
   if (drawer) drawer.classList.remove('open');
+  if (backdrop) backdrop.classList.remove('active');
 }
 
 function renderDrawerList() {
@@ -499,6 +509,11 @@ function handleGlobalKeydown(e) {
   if (!modal || !modal.classList.contains('active')) return;
 
   if (e.key === 'Escape') {
+    const drawer = document.getElementById('chapterDrawer');
+    if (drawer && drawer.classList.contains('open')) {
+      closeDrawer();
+      return;
+    }
     closeReaderModal();
   } else if (e.key === 'ArrowLeft') {
     navigateChapter(-1);

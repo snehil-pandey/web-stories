@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>The Literary Room — Stories & Novels by Snehil Pandey</title>
   <meta name="description" content="An independent personal literary publication featuring serialised web novels, intimate narratives, and short philosophical tales by Snehil Pandey.">
 
@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!-- Accessible Skip to Content Link -->
+  <a href="#featured" class="skip-to-content">Skip to content</a>
 
   <!-- Soft Ambient Radial Glow Atmosphere -->
   <div class="ambient-glow glow-1"></div>
@@ -34,7 +37,12 @@
         </div>
       </a>
 
-      <nav aria-label="Primary Navigation">
+      <!-- Mobile Navigation Toggle Button -->
+      <button class="nav-toggle-btn" id="navToggleBtn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primaryNav">
+        <i class="fa-solid fa-bars menu-icon"></i>
+      </button>
+
+      <nav id="primaryNav" class="nav-menu" aria-label="Primary Navigation">
         <ul class="nav-links">
           <li><a href="#featured" class="nav-link"><i class="fa-regular fa-star"></i> Featured</a></li>
           <li><a href="#stories" class="nav-link"><i class="fa-solid fa-book-open"></i> Stories</a></li>
@@ -157,22 +165,24 @@
 
       <!-- Filters & Live Client-Side Search -->
       <div class="collection-header-strip">
-        <div class="filter-pills" role="tablist" aria-label="Filter Stories by Category">
-          <button class="filter-pill active" data-filter="all" role="tab" aria-selected="true">
-            <i class="fa-solid fa-layer-group"></i> All Stories
-          </button>
-          <button class="filter-pill" data-filter="completed" role="tab" aria-selected="false">
-            <i class="fa-solid fa-circle-check"></i> Completed
-          </button>
-          <button class="filter-pill" data-filter="ongoing" role="tab" aria-selected="false">
-            <i class="fa-solid fa-pen-nib"></i> Ongoing Serials
-          </button>
-          <button class="filter-pill" data-filter="romance" role="tab" aria-selected="false">
-            <i class="fa-solid fa-heart"></i> Romance
-          </button>
-          <button class="filter-pill" data-filter="mystery" role="tab" aria-selected="false">
-            <i class="fa-solid fa-compass"></i> Mystery & Tale
-          </button>
+        <div class="filter-pills-wrap">
+          <div class="filter-pills" role="tablist" aria-label="Filter Stories by Category">
+            <button class="filter-pill active" data-filter="all" role="tab" aria-selected="true">
+              <i class="fa-solid fa-layer-group"></i> All Stories
+            </button>
+            <button class="filter-pill" data-filter="completed" role="tab" aria-selected="false">
+              <i class="fa-solid fa-circle-check"></i> Completed
+            </button>
+            <button class="filter-pill" data-filter="ongoing" role="tab" aria-selected="false">
+              <i class="fa-solid fa-pen-nib"></i> Ongoing Serials
+            </button>
+            <button class="filter-pill" data-filter="romance" role="tab" aria-selected="false">
+              <i class="fa-solid fa-heart"></i> Romance
+            </button>
+            <button class="filter-pill" data-filter="mystery" role="tab" aria-selected="false">
+              <i class="fa-solid fa-compass"></i> Mystery & Tale
+            </button>
+          </div>
         </div>
 
         <div class="search-box">
@@ -327,10 +337,60 @@
 
   </div>
 
-  <!-- Search & Filter Micro-Engine -->
+  <!-- Search & Filter Micro-Engine & Navigation Controller -->
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    // Mobile Navigation Controller
+    const navToggleBtn = document.getElementById('navToggleBtn');
+    const primaryNav = document.getElementById('primaryNav');
+
+    if (navToggleBtn && primaryNav) {
+      navToggleBtn.addEventListener('click', () => {
+        const isExpanded = navToggleBtn.getAttribute('aria-expanded') === 'true';
+        navToggleBtn.setAttribute('aria-expanded', String(!isExpanded));
+        primaryNav.classList.toggle('open');
+        const icon = navToggleBtn.querySelector('i');
+        if (icon) {
+          icon.className = !isExpanded ? 'fa-solid fa-xmark menu-icon' : 'fa-solid fa-bars menu-icon';
+        }
+      });
+
+      // Close navigation drawer when a link is clicked
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          if (primaryNav.classList.contains('open')) {
+            primaryNav.classList.remove('open');
+            navToggleBtn.setAttribute('aria-expanded', 'false');
+            const icon = navToggleBtn.querySelector('i');
+            if (icon) icon.className = 'fa-solid fa-bars menu-icon';
+          }
+        });
+      });
+
+      // Close navigation on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && primaryNav.classList.contains('open')) {
+          primaryNav.classList.remove('open');
+          navToggleBtn.setAttribute('aria-expanded', 'false');
+          navToggleBtn.focus();
+          const icon = navToggleBtn.querySelector('i');
+          if (icon) icon.className = 'fa-solid fa-bars menu-icon';
+        }
+      });
+
+      // Close navigation when clicking outside
+      document.addEventListener('click', (e) => {
+        if (primaryNav.classList.contains('open') && !primaryNav.contains(e.target) && !navToggleBtn.contains(e.target)) {
+          primaryNav.classList.remove('open');
+          navToggleBtn.setAttribute('aria-expanded', 'false');
+          const icon = navToggleBtn.querySelector('i');
+          if (icon) icon.className = 'fa-solid fa-bars menu-icon';
+        }
+      });
+    }
+
+    // Search and Filter Micro-Engine
     const filterPills = document.querySelectorAll('.filter-pill');
     const searchInput = document.getElementById('storySearch');
     const cards = document.querySelectorAll('.story-card');
