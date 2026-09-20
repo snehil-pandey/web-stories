@@ -1,0 +1,513 @@
+/**
+ * ============================================================================
+ * The Literary Room — Full-Screen Reader Architecture & Prose Typography
+ * File: assets/css/reader.css
+ * Reading modal layout, side chapter drawer, reading canvas, prose typography,
+ * and navigation controls.
+ * ============================================================================
+ */
+
+/* ==========================================================================
+   1. Reader Modal Shell & Layering
+   ========================================================================== */
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(44, 40, 37, 0.55);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+#readerModal {
+  z-index: 1000;
+}
+
+#settingsModal {
+  z-index: 2100 !important;
+}
+
+.modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-box {
+  background: var(--card-bg);
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: var(--shadow-modal);
+  position: relative;
+  animation: modalSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalSlide {
+  from { transform: translateY(20px) scale(0.98); }
+  to { transform: translateY(0) scale(1); }
+}
+
+/* ==========================================================================
+   2. Reader Header Bar
+   ========================================================================== */
+
+.reader-header {
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border-warm);
+  padding: 10px clamp(12px, 2.5vw, 24px);
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  z-index: 20;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-hamburger {
+  background: var(--bg-warm);
+  border: 1px solid var(--border-warm);
+  font-size: 0.95rem;
+  cursor: pointer;
+  color: var(--text-main);
+  padding: 8px 14px;
+  min-height: 44px;
+  min-width: 44px;
+  border-radius: var(--radius-md, 10px);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.btn-hamburger:hover {
+  background: var(--accent-theme-soft, #FDF2F4);
+  border-color: var(--accent-theme, #D9777F);
+  color: var(--accent-theme, #D9777F);
+}
+
+.btn-hamburger:focus-visible {
+  outline: 2px solid var(--accent-theme, #D9777F);
+  outline-offset: 2px;
+}
+
+.reader-chap-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 2.8vw, 1.25rem);
+  font-weight: 600;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: min(520px, 60vw);
+}
+
+.btn-reader-action {
+  background: var(--bg-warm);
+  border: 1px solid var(--border-warm);
+  font-size: 1rem;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 50%;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.btn-reader-action:hover {
+  background: var(--accent-theme-soft, #FDF2F4);
+  color: var(--accent-theme, #D9777F);
+  border-color: var(--accent-theme, #D9777F);
+}
+
+.btn-reader-action:focus-visible {
+  outline: 2px solid var(--accent-theme, #D9777F);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   3. Side Chapter Drawer & Scrim
+   ========================================================================== */
+
+.reader-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  background: var(--card-bg);
+}
+
+/* Subtle Perimeter Vignette to ground reading surface */
+.reader-body::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 clamp(40px, 8vw, 120px) var(--reader-vignette-shadow, rgba(44, 40, 37, 0.04));
+  z-index: 15;
+}
+
+/* Ambient Illuminated Light Drift Behind Reading Canvas */
+.reader-ambient-drift {
+  position: absolute;
+  inset: -15%;
+  width: 130%;
+  height: 130%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 1s var(--motion-ease-soft, ease);
+  background: 
+    radial-gradient(ellipse at 25% 20%, var(--reader-ambient-glow-1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 55%, var(--reader-ambient-glow-2) 0%, transparent 55%),
+    radial-gradient(ellipse at 45% 85%, var(--reader-ambient-glow-3) 0%, transparent 45%);
+  will-change: transform, opacity;
+  animation: readerAmbientGlide 22s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+
+/* Run animation only when the reader is actively opened */
+.modal-overlay.active .reader-ambient-drift {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+@keyframes readerAmbientGlide {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.85;
+  }
+  35% {
+    transform: translate3d(4%, -3.5%, 0) scale(1.05);
+    opacity: 1;
+  }
+  70% {
+    transform: translate3d(-3.5%, 3%, 0) scale(0.97);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(2.5%, -2%, 0) scale(1.03);
+    opacity: 1;
+  }
+}
+
+.drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(28, 19, 22, 0.45);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 28;
+}
+
+.drawer-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.chapter-drawer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: min(320px, 85vw);
+  height: 100%;
+  background: var(--card-bg);
+  border-right: 1px solid var(--border-warm);
+  z-index: 30;
+  transform: translateX(-100%);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  padding: 20px 14px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.chapter-drawer.open {
+  transform: translateX(0);
+  box-shadow: 10px 0 35px rgba(0, 0, 0, 0.12);
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  padding: 0 8px;
+  font-weight: 700;
+}
+
+.drawer-close-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border-warm);
+  background: var(--bg-warm);
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.drawer-close-btn:hover {
+  color: var(--accent-theme, #D9777F);
+  border-color: var(--accent-theme, #D9777F);
+  background: var(--accent-theme-soft, #FDF2F4);
+}
+
+.drawer-close-btn:focus-visible {
+  outline: 2px solid var(--accent-theme, #D9777F);
+  outline-offset: 2px;
+}
+
+.drawer-item {
+  padding: 12px 14px;
+  border-radius: var(--radius-md, 10px);
+  cursor: pointer;
+  font-size: 0.94rem;
+  margin-bottom: 4px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  color: var(--text-main);
+  transition: all 0.2s ease;
+}
+
+.drawer-item:hover {
+  background: var(--bg-warm);
+  color: var(--accent-theme, #D9777F);
+}
+
+.drawer-item.active {
+  background: var(--accent-theme-soft, #FDF2F4);
+  color: var(--accent-theme, #D9777F);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   4. Reading Canvas & Literary Prose Typography
+   ========================================================================== */
+
+.reading-area {
+  flex: 1;
+  padding: clamp(20px, 4vw, 48px) clamp(16px, 4vw, 64px);
+  overflow-y: auto;
+  background: transparent !important;
+  position: relative;
+  z-index: 5;
+  -webkit-overflow-scrolling: touch;
+}
+
+.reading-content {
+  position: relative;
+  z-index: 6;
+  max-width: 720px;
+  margin: 0 auto;
+  font-family: var(--font-serif);
+  font-size: var(--reader-font-size, clamp(1.12rem, 3.6vw, 1.28rem));
+  line-height: var(--reader-line-height, 1.8);
+  color: var(--text-primary);
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+  transition: font-size 0.2s ease, line-height 0.2s ease;
+}
+
+.reading-content h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: clamp(20px, 4vw, 32px);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-warm);
+  text-align: left;
+}
+
+.reading-content p {
+  margin-bottom: var(--reader-paragraph-gap, clamp(18px, 3.5vw, 24px));
+  line-height: var(--reader-line-height, 1.8);
+  transition: margin-bottom 0.2s ease, line-height 0.2s ease;
+}
+
+.reading-content blockquote {
+  border-left: 3px solid var(--accent-theme, #D9777F);
+  background: var(--accent-theme-soft, #FDF2F4);
+  margin: 20px 0;
+  padding: clamp(10px, 2.5vw, 14px) clamp(14px, 3vw, 22px);
+  font-style: italic;
+  border-radius: 0 10px 10px 0;
+  color: var(--text-main);
+  line-height: 1.75;
+}
+
+.reading-content em,
+.reading-content em.thought {
+  font-style: italic;
+  color: var(--thought-text);
+}
+
+.reading-content em.chat-text {
+  font-style: italic;
+  color: var(--text-primary);
+}
+
+.reading-content strong,
+.reading-content b {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.reading-content hr {
+  border: none;
+  height: 1px;
+  background: var(--border-warm);
+  margin: clamp(24px, 5vw, 36px) 0;
+}
+
+/* ==========================================================================
+   5. Reader Footer Controls
+   ========================================================================== */
+
+.reader-footer {
+  background: var(--card-bg);
+  border-top: 1px solid var(--border-warm);
+  padding: 8px clamp(12px, 2.5vw, 24px) max(8px, env(safe-area-inset-bottom));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 56px;
+  gap: 8px;
+  z-index: 20;
+}
+
+.nav-btn {
+  padding: 10px clamp(14px, 2.5vw, 22px);
+  min-height: 44px;
+  border-radius: var(--radius-pill, 30px);
+  border: 1px solid var(--border-warm);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: var(--bg-warm);
+  color: var(--text-main);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: var(--accent-theme-soft, #FDF2F4);
+  border-color: var(--accent-theme, #D9777F);
+  color: var(--accent-theme, #D9777F);
+}
+
+.nav-btn:focus-visible {
+  outline: 2px solid var(--accent-theme, #D9777F);
+  outline-offset: 2px;
+}
+
+.nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.progress-indicator {
+  font-size: clamp(0.78rem, 2.2vw, 0.86rem);
+  color: var(--text-muted);
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 4px;
+}
+
+/* ==========================================================================
+   6. Responsive Adaptations for Reader
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .btn-text-hide-mobile {
+    display: none;
+  }
+
+  /* On mobile, keep reader ambient drift static to preserve battery and avoid compositing overhead */
+  .reader-ambient-drift {
+    animation: none !important;
+    transform: none !important;
+    opacity: 0.9 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-btn-text {
+    display: none;
+  }
+
+  .nav-btn {
+    padding: 10px 14px;
+  }
+
+  .reader-chap-title {
+    max-width: 160px;
+  }
+}
+
+@media (max-width: 360px) {
+  .reader-chap-title {
+    max-width: 120px;
+  }
+}
+
+/* Reduced motion accessibility override for reader ambient layer */
+@media (prefers-reduced-motion: reduce) {
+  .reader-ambient-drift {
+    animation: none !important;
+    transform: none !important;
+    opacity: 0.85 !important;
+  }
+}

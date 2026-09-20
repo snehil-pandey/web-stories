@@ -14,7 +14,13 @@
   <!-- Font Awesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <link rel="stylesheet" href="style.css">
+  <!-- Universal Tokens & Centralized Architecture -->
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages/home.css">
+  <!-- Reusable Literary Motion Stylesheet -->
+  <link rel="stylesheet" href="assets/motion/motion.css">
 </head>
 <body>
 
@@ -58,7 +64,7 @@
         <span>Stories • Serialised Novels • Quiet Realism</span>
       </div>
 
-      <h1 class="hero-headline">
+      <h1 class="hero-headline" data-motion-hero-headline>
         Where words linger in <em>the quiet spaces</em> between thoughts.
       </h1>
 
@@ -79,7 +85,7 @@
     </section>
 
     <!-- 1. Featured Work Presentation (Editorial Cover Display) -->
-    <section id="featured" aria-labelledby="featured-label">
+    <section id="featured" aria-labelledby="featured-label" data-motion="reveal">
       <div class="section-label" id="featured-label">
         <span>Featured Publication</span>
       </div>
@@ -118,7 +124,7 @@
           </div>
 
           <div class="cover-actions">
-            <a href="./dreamy-destiny/" class="btn-cover-read">
+            <a href="./dreamy-destiny/" class="btn-cover-read btn-sheen">
               <i class="fa-solid fa-book-open-reader"></i>
               <span>Open Interactive Reader</span>
             </a>
@@ -130,7 +136,7 @@
         </div>
 
         <!-- Atmospheric Literary Quote & Character Composition -->
-        <aside class="cover-artwork" aria-label="Story Excerpt & Atmosphere">
+        <aside class="cover-artwork book-perspective-wrap" data-motion-book-tilt aria-label="Story Excerpt & Atmosphere">
           <div class="artwork-header">
             <span>Intimate Romance</span>
             <span>By Snehil Pandey</span>
@@ -192,7 +198,7 @@
       </div>
 
       <!-- Stories Responsive Grid (3 columns on desktop, 2 on tablet, 1 on mobile) -->
-      <div class="stories-grid" id="storiesGrid">
+      <div class="stories-grid" id="storiesGrid" data-motion-stagger>
 
         <!-- Story 1: How Do We Even Think? (Thematic Midnight Twilight Palette) -->
         <article class="story-card theme-midnight active-story" data-status="completed" data-genre="mystery philosophy" data-title="How Do We Even Think?" data-search="how do we even think muse philosophy mystery standalone cosmos ceiling">
@@ -302,7 +308,7 @@
     </section>
 
     <!-- 3. Author Introduction & Philosophy -->
-    <section class="author-profile-section" id="about" aria-labelledby="about-heading">
+    <section class="author-profile-section" id="about" aria-labelledby="about-heading" data-motion="reveal">
       <div class="author-avatar" aria-hidden="true">S</div>
       <div class="author-bio-content">
         <h3 id="about-heading">About the Author & Writing Philosophy</h3>
@@ -337,111 +343,16 @@
 
   </div>
 
-  <!-- Search & Filter Micro-Engine & Navigation Controller -->
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Mobile Navigation Controller
-    const navToggleBtn = document.getElementById('navToggleBtn');
-    const primaryNav = document.getElementById('primaryNav');
+  <!-- GreenSock GSAP 3 & ScrollTrigger (Standard Web License) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
-    if (navToggleBtn && primaryNav) {
-      navToggleBtn.addEventListener('click', () => {
-        const isExpanded = navToggleBtn.getAttribute('aria-expanded') === 'true';
-        navToggleBtn.setAttribute('aria-expanded', String(!isExpanded));
-        primaryNav.classList.toggle('open');
-        const icon = navToggleBtn.querySelector('i');
-        if (icon) {
-          icon.className = !isExpanded ? 'fa-solid fa-xmark menu-icon' : 'fa-solid fa-bars menu-icon';
-        }
-      });
+  <!-- Unified Literary Motion Engine -->
+  <script src="assets/motion/motion.js"></script>
 
-      // Close navigation drawer when a link is clicked
-      document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-          if (primaryNav.classList.contains('open')) {
-            primaryNav.classList.remove('open');
-            navToggleBtn.setAttribute('aria-expanded', 'false');
-            const icon = navToggleBtn.querySelector('i');
-            if (icon) icon.className = 'fa-solid fa-bars menu-icon';
-          }
-        });
-      });
-
-      // Close navigation on Escape key
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && primaryNav.classList.contains('open')) {
-          primaryNav.classList.remove('open');
-          navToggleBtn.setAttribute('aria-expanded', 'false');
-          navToggleBtn.focus();
-          const icon = navToggleBtn.querySelector('i');
-          if (icon) icon.className = 'fa-solid fa-bars menu-icon';
-        }
-      });
-
-      // Close navigation when clicking outside
-      document.addEventListener('click', (e) => {
-        if (primaryNav.classList.contains('open') && !primaryNav.contains(e.target) && !navToggleBtn.contains(e.target)) {
-          primaryNav.classList.remove('open');
-          navToggleBtn.setAttribute('aria-expanded', 'false');
-          const icon = navToggleBtn.querySelector('i');
-          if (icon) icon.className = 'fa-solid fa-bars menu-icon';
-        }
-      });
-    }
-
-    // Search and Filter Micro-Engine
-    const filterPills = document.querySelectorAll('.filter-pill');
-    const searchInput = document.getElementById('storySearch');
-    const cards = document.querySelectorAll('.story-card');
-    const noResultsMsg = document.getElementById('noResultsMsg');
-
-    let activeFilter = 'all';
-    let searchQuery = '';
-
-    function applyFilters() {
-      let visibleCount = 0;
-
-      cards.forEach(card => {
-        const matchesCategory =
-          activeFilter === 'all' ||
-          (activeFilter === 'completed' && card.dataset.status === 'completed') ||
-          (activeFilter === 'ongoing' && card.dataset.status === 'ongoing') ||
-          (activeFilter === 'romance' && card.dataset.genre.includes('romance')) ||
-          (activeFilter === 'mystery' && card.dataset.genre.includes('mystery'));
-
-        const searchableText = (card.dataset.search || '').toLowerCase();
-        const matchesSearch = !searchQuery || searchableText.includes(searchQuery);
-
-        if (matchesCategory && matchesSearch) {
-          card.style.display = 'grid';
-          visibleCount++;
-        } else {
-          card.style.display = 'none';
-        }
-      });
-
-      noResultsMsg.style.display = visibleCount === 0 ? 'block' : 'none';
-    }
-
-    filterPills.forEach(pill => {
-      pill.addEventListener('click', () => {
-        filterPills.forEach(p => {
-          p.classList.remove('active');
-          p.setAttribute('aria-selected', 'false');
-        });
-        pill.classList.add('active');
-        pill.setAttribute('aria-selected', 'true');
-
-        activeFilter = pill.getAttribute('data-filter');
-        applyFilters();
-      });
-    });
-
-    searchInput.addEventListener('input', (e) => {
-      searchQuery = e.target.value.trim().toLowerCase();
-      applyFilters();
-    });
-  </script>
+  <!-- Shared Navigation & Homepage Catalog Engine -->
+  <script src="assets/js/shared/navigation.js"></script>
+  <script src="assets/js/pages/home.js"></script>
 </body>
 </html>

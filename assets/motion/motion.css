@@ -1,0 +1,616 @@
+/**
+ * ============================================================================
+ * The Literary Room — Advanced Animation & Motion Design System
+ * File: assets/motion/motion.css
+ * 
+ * Reusable, accessible, GPU-accelerated motion stylesheet for literary storytelling.
+ * Respects 'prefers-reduced-motion', hardware profiles, and mobile comfort.
+ * ============================================================================
+ */
+
+:root {
+  /* Centralized Motion Tokens */
+  --motion-ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);    /* Out-quart / GSAP power3.out */
+  --motion-ease-soft: cubic-bezier(0.25, 0.1, 0.25, 1);     /* Smooth ease */
+  --motion-ease-spring: cubic-bezier(0.34, 1.36, 0.64, 1);  /* Subdued literary spring */
+  --motion-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);     /* Symmetrical glide */
+
+  /* Duration Scales */
+  --motion-duration-instant: 120ms;
+  --motion-duration-snappy: 220ms;
+  --motion-duration-normal: 380ms;
+  --motion-duration-gentle: 550ms;
+  --motion-duration-ambient: 22s;
+
+  /* Reader Typography Variables (Customizable via Reading Comfort Controls) */
+  --reader-font-size: clamp(1.12rem, 3.6vw, 1.28rem);
+  --reader-line-height: 1.82;
+  --reader-paragraph-gap: clamp(18px, 3.5vw, 24px);
+}
+
+/* ==========================================================================
+   1. Atmospheric Canvas Layer
+   ========================================================================== */
+.atmosphere-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1; /* Sits immediately above base background, behind all text content */
+  opacity: 1;
+  transition: opacity var(--motion-duration-gentle) var(--motion-ease-editorial);
+  contain: strict;
+}
+
+.atmosphere-canvas.dimmed {
+  opacity: 0.12;
+}
+
+.atmosphere-canvas.hidden {
+  opacity: 0;
+}
+
+/* Ambient glow subtle breathing drift */
+@keyframes ambientGlowDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  35% {
+    transform: translate3d(20px, -14px, 0) scale(1.03);
+  }
+  70% {
+    transform: translate3d(-14px, 18px, 0) scale(0.98);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.ambient-glow {
+  will-change: transform;
+  animation: ambientGlowDrift var(--motion-duration-ambient) ease-in-out infinite alternate;
+}
+
+.ambient-glow.glow-2 {
+  animation-duration: 28s;
+  animation-delay: -9s;
+  animation-direction: alternate-reverse;
+}
+
+/* ==========================================================================
+   2. Robust Content Visibility & Reveal Fallbacks
+   ========================================================================== */
+/* Default static state: 100% visible so content is NEVER hidden if JS fails */
+[data-motion="reveal"] {
+  opacity: 1;
+  transform: none;
+}
+
+[data-motion-stagger] > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* Progressive enhancement: Only hide elements when JS motion engine is active */
+html.js-motion-ready:not(.reduced-motion) [data-motion="reveal"]:not(.is-revealed) {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition: opacity var(--motion-duration-normal) var(--motion-ease-editorial),
+              transform var(--motion-duration-normal) var(--motion-ease-editorial);
+  will-change: opacity, transform;
+}
+
+html.js-motion-ready:not(.reduced-motion) [data-motion="reveal"].is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+html.js-motion-ready:not(.reduced-motion) [data-motion-stagger]:not(.is-revealed) > * {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition: opacity var(--motion-duration-normal) var(--motion-ease-editorial),
+              transform var(--motion-duration-normal) var(--motion-ease-editorial);
+  will-change: opacity, transform;
+}
+
+html.js-motion-ready:not(.reduced-motion) [data-motion-stagger].is-revealed > * {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* ==========================================================================
+   3. Hero Headline Reveal & 3D Perspective
+   ========================================================================== */
+.hero-headline .reveal-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  margin-right: 0.28em;
+}
+
+.hero-headline .reveal-word-inner {
+  display: inline-block;
+  opacity: 0;
+  transform: translate3d(0, 105%, 0);
+  transition: transform 650ms var(--motion-ease-editorial), opacity 550ms var(--motion-ease-editorial);
+  will-change: transform, opacity;
+}
+
+.hero-headline.revealed .reveal-word-inner {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Hero Badge & Subheading gentle cascade */
+.hero-badge-animated {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0);
+  transition: transform var(--motion-duration-gentle) var(--motion-ease-editorial),
+              opacity var(--motion-duration-gentle) var(--motion-ease-editorial);
+}
+
+.hero-badge-animated.revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.hero-subheading-animated {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  transition: transform var(--motion-duration-gentle) var(--motion-ease-editorial) 120ms,
+              opacity var(--motion-duration-gentle) var(--motion-ease-editorial) 120ms;
+}
+
+.hero-subheading-animated.revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.hero-actions-animated {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  transition: transform var(--motion-duration-gentle) var(--motion-ease-editorial) 220ms,
+              opacity var(--motion-duration-gentle) var(--motion-ease-editorial) 220ms;
+}
+
+.hero-actions-animated.revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* 3D Book Perspective Container (Desktop Mouse Only) */
+.book-perspective-wrap {
+  perspective: 950px;
+  transform-style: preserve-3d;
+}
+
+.book-tilt-target {
+  transition: transform 350ms var(--motion-ease-editorial), box-shadow 350ms var(--motion-ease-editorial);
+  will-change: transform;
+}
+
+/* Soft floating breathing motion for literary motif */
+@keyframes literaryFloat {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -5px, 0);
+  }
+}
+
+.float-gentle {
+  animation: literaryFloat 6s ease-in-out infinite;
+}
+
+/* Story Card Hover Elevation & Image Polish */
+.story-card {
+  transition: transform var(--motion-duration-snappy) var(--motion-ease-editorial),
+              box-shadow var(--motion-duration-snappy) var(--motion-ease-editorial),
+              border-color var(--motion-duration-snappy) var(--motion-ease-editorial);
+}
+
+.story-card:hover {
+  transform: translate3d(0, -4px, 0);
+  box-shadow: 0 14px 32px rgba(44, 30, 24, 0.08), 0 3px 10px rgba(44, 30, 24, 0.03);
+}
+
+.story-card .card-thumb img {
+  transition: transform 500ms var(--motion-ease-editorial);
+}
+
+.story-card:hover .card-thumb img {
+  transform: scale(1.03);
+}
+
+/* ==========================================================================
+   4. Refined, Brief Chapter Opening Transitions (<350ms)
+   ========================================================================== */
+.chapter-opening-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+  animation: chapterFadeSlide 320ms var(--motion-ease-editorial) forwards;
+}
+
+@keyframes chapterFadeSlide {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.chapter-number-badge {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent-rose, var(--accent-midnight, #C47A83));
+  margin-bottom: 0.5rem;
+  opacity: 0;
+  animation: chapterBadgeReveal 300ms var(--motion-ease-editorial) 60ms forwards;
+}
+
+@keyframes chapterBadgeReveal {
+  from {
+    opacity: 0;
+    letter-spacing: 0.10em;
+    transform: translate3d(0, 6px, 0);
+  }
+  to {
+    opacity: 1;
+    letter-spacing: 0.20em;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.chapter-title-serif {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 4.2vw, 2.2rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.22;
+  margin: 0.15rem auto 0.8rem;
+}
+
+/* Decorative Ornamental Divider with Center Asterism (✦) */
+.ornamental-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 1.4rem auto 1.8rem;
+  max-width: 220px;
+}
+
+.ornamental-divider .divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, currentColor, transparent);
+  color: var(--border-color, #E2D9D2);
+  transform: scaleX(0);
+  transform-origin: center;
+  animation: dividerLineGrow 320ms var(--motion-ease-editorial) 100ms forwards;
+}
+
+.ornamental-divider .divider-glyph {
+  font-size: 0.72rem;
+  color: var(--accent-rose, var(--accent-midnight, #C47A83));
+  opacity: 0;
+  transform: scale(0.5) rotate(-30deg);
+  animation: dividerGlyphSpin 300ms var(--motion-ease-spring) 120ms forwards;
+}
+
+@keyframes dividerLineGrow {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes dividerGlyphSpin {
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Prose Paragraph Calm Entry & Dynamic Customization */
+.reading-content {
+  font-size: var(--reader-font-size) !important;
+  line-height: var(--reader-line-height) !important;
+  transition: font-size var(--motion-duration-snappy) var(--motion-ease-soft),
+              line-height var(--motion-duration-snappy) var(--motion-ease-soft);
+}
+
+.reading-content p,
+.reading-content .chat-msg {
+  margin-bottom: var(--reader-paragraph-gap) !important;
+  line-height: var(--reader-line-height) !important;
+  animation: proseFade 260ms var(--motion-ease-editorial) forwards;
+  transition: margin-bottom var(--motion-duration-snappy) var(--motion-ease-soft),
+              line-height var(--motion-duration-snappy) var(--motion-ease-soft);
+}
+
+@keyframes proseFade {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   5. Reusable, Dignified Micro-Interactions
+   ========================================================================== */
+/* Interactive Button Sheen with Paint Containment */
+.btn-sheen {
+  position: relative;
+  overflow: hidden;
+  contain: paint;
+  transition: transform var(--motion-duration-snappy) var(--motion-ease-editorial),
+              box-shadow var(--motion-duration-snappy) var(--motion-ease-editorial);
+}
+
+.btn-sheen::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -70%;
+  width: 45%;
+  height: 200%;
+  background: linear-gradient(
+    105deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.16) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(25deg);
+  pointer-events: none;
+  transition: transform 550ms var(--motion-ease-editorial);
+}
+
+.btn-sheen:hover::after {
+  transform: translate3d(340%, 0, 0) rotate(25deg);
+}
+
+.btn-sheen:active {
+  transform: scale(0.98);
+}
+
+/* Tactile Navigation Underline (Ink-Stroke Draw) */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent-rose, var(--accent-burgundy, #C47A83));
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 260ms var(--motion-ease-editorial);
+  border-radius: 2px;
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Interactive Filter Pill Tactile Feedback */
+.filter-pill {
+  transition: background-color var(--motion-duration-snappy) var(--motion-ease-soft),
+              color var(--motion-duration-snappy) var(--motion-ease-soft),
+              transform var(--motion-duration-snappy) var(--motion-ease-spring),
+              border-color var(--motion-duration-snappy) var(--motion-ease-soft),
+              box-shadow var(--motion-duration-snappy) var(--motion-ease-soft);
+}
+
+.filter-pill:hover {
+  transform: translate3d(0, -2px, 0);
+}
+
+.filter-pill:active {
+  transform: scale(0.97);
+}
+
+.filter-pill.active {
+  box-shadow: 0 4px 12px rgba(196, 122, 131, 0.18);
+}
+
+/* Dignified Bookmark Ribbon Pulse (Subtle, calm, non-gamified) */
+@keyframes bookmarkPulse {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.025);
+    border-color: var(--accent-rose, var(--accent-midnight, #C47A83));
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.progress-pill-pulse {
+  animation: bookmarkPulse 380ms var(--motion-ease-spring);
+}
+
+/* ==========================================================================
+   6. Reading Typography & Settings Comfort Controls
+   ========================================================================== */
+/* Ensure Settings Modal always floats gracefully above Reader Modal & Drawer */
+#settingsModal {
+  z-index: 2100 !important;
+}
+
+#readerModal {
+  z-index: 1000;
+}
+
+.btn-reader-action {
+  background: transparent;
+  border: 1px solid var(--border-warm, #E8DFD8);
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted, #7A726D);
+  cursor: pointer;
+  transition: color var(--motion-duration-snappy) var(--motion-ease-soft),
+              border-color var(--motion-duration-snappy) var(--motion-ease-soft),
+              background-color var(--motion-duration-snappy) var(--motion-ease-soft);
+  margin-right: 8px;
+}
+
+.btn-reader-action:hover,
+.btn-reader-action:focus-visible {
+  color: var(--text-main, #2C2523);
+  border-color: var(--accent-rose, var(--accent-midnight, #C47A83));
+  background: var(--bg-warm, #FAF6F0);
+}
+
+.settings-option-pills {
+  display: flex;
+  gap: 8px;
+  background: var(--bg-warm, #FAF6F0);
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid var(--border-warm, #E8DFD8);
+  margin-bottom: 8px;
+}
+
+.btn-option-pill {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  background: transparent;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted, #7A726D);
+  cursor: pointer;
+  transition: background-color var(--motion-duration-snappy) var(--motion-ease-soft),
+              color var(--motion-duration-snappy) var(--motion-ease-soft),
+              border-color var(--motion-duration-snappy) var(--motion-ease-soft);
+  text-align: center;
+}
+
+.btn-option-pill:hover {
+  color: var(--text-main, #2C2523);
+}
+
+.btn-option-pill.active {
+  background: var(--bg-card, #FFFFFF);
+  color: var(--accent-rose, var(--accent-midnight, #C47A83));
+  border-color: var(--border-warm, #E8DFD8);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================================================
+   7. Progressive Disclosure Smooth Accordion
+   ========================================================================== */
+.story-details-accordion {
+  transition: background-color var(--motion-duration-snappy) var(--motion-ease-soft),
+              border-color var(--motion-duration-snappy) var(--motion-ease-soft);
+}
+
+.details-summary .summary-arrow {
+  transition: transform 300ms var(--motion-ease-editorial);
+}
+
+.story-details-accordion[open] .details-summary .summary-arrow {
+  transform: rotate(180deg);
+}
+
+/* ==========================================================================
+   8. Responsive Motion Profiles (Mobile & Tablet Overrides)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Disable 3D tilt on touch / tablet devices */
+  .book-perspective-wrap {
+    perspective: none !important;
+    transform: none !important;
+  }
+
+  .book-tilt-target {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Accelerate word reveals on mobile */
+  .hero-headline .reveal-word-inner {
+    transition-duration: 400ms !important;
+  }
+
+  /* Reduced ambient glow travel to save mobile GPU cycles */
+  @keyframes ambientGlowDrift {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(8px, -6px, 0) scale(1.015);
+    }
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  .ambient-glow {
+    animation-duration: 32s;
+  }
+}
+
+/* ==========================================================================
+   9. Accessibility: Complete Prefers-Reduced-Motion Overrides
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .ambient-glow {
+    animation: none !important;
+  }
+
+  .atmosphere-canvas {
+    display: none !important;
+  }
+
+  .hero-headline .reveal-word-inner,
+  .hero-badge-animated,
+  .hero-subheading-animated,
+  .hero-actions-animated,
+  [data-motion="reveal"],
+  [data-motion-stagger] > *,
+  .chapter-opening-header,
+  .chapter-number-badge,
+  .ornamental-divider .divider-line,
+  .ornamental-divider .divider-glyph,
+  .reading-content p {
+    opacity: 1 !important;
+    transform: none !important;
+    letter-spacing: inherit !important;
+  }
+
+  .btn-sheen::after {
+    display: none !important;
+  }
+}

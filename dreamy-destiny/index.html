@@ -13,8 +13,13 @@
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=2.2">
+  <!-- Universal Tokens & Shared Component Architecture -->
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/reader.css">
+  <link rel="stylesheet" href="style.css?v=3.0">
+  <link rel="stylesheet" href="../assets/motion/motion.css">
 
   <!-- Immediate Theme Initializer to prevent white flash -->
   <script>
@@ -26,7 +31,7 @@
   <!-- Marked.js CDN for Client-side Markdown Rendering -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
-<body>
+<body data-atmosphere="petals">
 
   <!-- Accessible Skip to Story Link -->
   <a href="#landingMain" class="skip-to-content">Skip to story</a>
@@ -148,7 +153,21 @@
         </button>
       </div>
       <div class="settings-body">
-        
+        <!-- Reading Comfort & Typography Section -->
+        <div class="settings-group">
+          <h4 class="settings-group-title"><i class="fa-solid fa-font"></i> Reading Typography</h4>
+          <p class="settings-desc">Adjust prose scale and line spacing for optimal reading comfort.</p>
+          <div class="settings-option-pills" role="group" aria-label="Font Size Selection">
+            <button class="btn-option-pill" data-font-size="compact">Compact</button>
+            <button class="btn-option-pill active" data-font-size="default">Default</button>
+            <button class="btn-option-pill" data-font-size="large">Large</button>
+          </div>
+          <div class="settings-option-pills" role="group" aria-label="Line Height Selection">
+            <button class="btn-option-pill active" data-line-height="standard">Standard Spacing</button>
+            <button class="btn-option-pill" data-line-height="relaxed">Relaxed Spacing</button>
+          </div>
+        </div>
+
         <!-- Data Management Section -->
         <div class="settings-group">
           <h4 class="settings-group-title"><i class="fa-solid fa-database"></i> Storage Management</h4>
@@ -176,14 +195,22 @@
           </button>
           <h2 class="reader-chap-title" id="headerChapTitle">Loading Chapter...</h2>
         </div>
-        <button class="btn-close-modal" id="btnCloseModal" aria-label="Close Reader" title="Close (Esc)">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
+        <div class="header-right" style="display: flex; align-items: center;">
+          <button class="btn-reader-action" id="btnReaderSettings" aria-label="Reading Comfort & Options" title="Reading Settings">
+            <i class="fa-solid fa-font"></i>
+          </button>
+          <button class="btn-close-modal" id="btnCloseModal" aria-label="Close Reader" title="Close (Esc)">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
       </header>
 
       <!-- Reader Main Area (Drawer + Reading Canvas) -->
       <div class="reader-body">
         
+        <!-- Ambient Drift Atmosphere Layer -->
+        <div class="reader-ambient-drift" aria-hidden="true"></div>
+
         <!-- Backdrop Scrim for Mobile Drawer -->
         <div class="drawer-backdrop" id="drawerBackdrop" aria-hidden="true"></div>
 
@@ -222,7 +249,13 @@
     </div>
   </div>
 
+  <!-- Shared Core Architecture -->
+  <script src="../assets/js/core/storage.js"></script>
+  <script src="../assets/js/core/theme.js"></script>
+  <script src="../assets/motion/motion.js"></script>
+  <script src="../assets/js/shared/reader-core.js"></script>
+
   <!-- Application Logic -->
-  <script src="script.js?v=2.2"></script>
+  <script src="script.js?v=3.0"></script>
 </body>
 </html>
