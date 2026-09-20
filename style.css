@@ -682,7 +682,7 @@ body {
   padding: 30px 28px 24px;
   box-shadow: var(--shadow-soft);
   position: relative;
-  grid-column: span 4;
+  grid-column: span 6;
   display: grid;
   grid-template-rows: auto auto 1fr auto auto;
   row-gap: 14px;
