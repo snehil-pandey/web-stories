@@ -352,15 +352,18 @@
 .pill-featured {
   background: var(--theme-rose-soft);
   color: var(--theme-rose-accent);
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  padding: 4px 12px;
+  padding: 4px 10px;
   border-radius: var(--radius-sm, 6px);
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
+  line-height: 1.2;
+  flex-shrink: 0;
 }
 
 .cover-title {
@@ -693,10 +696,10 @@
 }
 
 .card-header-grid {
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--border-subtle);
 }
@@ -754,14 +757,15 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: var(--text-muted);
   background: var(--bg-warm);
-  padding: 6px 10px;
+  padding: 4px 10px;
   border-radius: var(--radius-sm, 8px);
   border: 1px solid var(--border-warm);
   justify-content: center;
-  min-height: 32px;
+  min-height: 28px;
+  white-space: nowrap;
 }
 
 .card-footer-grid {
