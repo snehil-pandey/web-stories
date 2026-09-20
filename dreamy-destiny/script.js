@@ -120,7 +120,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Check Returning Reader Progress
   checkSavedProgress();
+
+  // Hash-based Deep Linking Support (#toc, #chapter-1, #chapter-2, etc.)
+  handleHashRouting();
+  window.addEventListener('hashchange', handleHashRouting);
 });
+
+function handleHashRouting() {
+  const hash = window.location.hash.toLowerCase();
+  if (!hash) return;
+
+  if (hash === '#toc') {
+    openReaderModal();
+    toggleDrawer();
+    return;
+  }
+
+  const match = hash.match(/^#chapter-(\d+)$/);
+  if (match) {
+    const chapNum = parseInt(match[1], 10);
+    const targetIdx = chapNum - 1;
+    if (targetIdx >= 0 && targetIdx < CHAPTERS.length) {
+      currentChapterIndex = targetIdx;
+      restoreScrollPercent = 0;
+      openReaderModal();
+    }
+  }
+}
 
 // Returning Reader State Management
 function checkSavedProgress() {

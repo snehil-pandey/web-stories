@@ -1,0 +1,408 @@
+/* ==========================================================================
+   How Do We Even Think? — Visual Design & Aesthetics
+   Palette: Midnight & Twilight Deep Blue, Soft Cream, Celestial Glow Accents
+   Consistent Structure with Portal & Dreamy Destiny
+   ========================================================================== */
+
+:root {
+  --bg-warm: #F4F7FB;
+  --card-bg: #FFFFFF;
+  --text-main: #1C2430;
+  --text-primary: #1C2430;
+  --text-muted: #536277;
+  --accent-midnight: #23456D;
+  --accent-hover: #162E4A;
+  --accent-soft: #EBF2FA;
+  --border-warm: #D9E3EF;
+  --border-subtle: #E8EFF7;
+  --shadow-soft: 0 12px 40px rgba(28, 36, 48, 0.08);
+  --drop-cap-color: #23456D;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --container-bg: #FFFFFF;
+  --divider-color: #D9E3EF;
+  --quote-color: #23456D;
+  --quote-border: #7CA0C7;
+  --footer-color: #6C7D93;
+  --theme-toggle-bg: #23456D;
+  --theme-toggle-color: #F4F7FB;
+}
+
+.dark-mode {
+  --bg-warm: #0F141C;
+  --card-bg: #171F2C;
+  --text-main: #E3E9F2;
+  --text-primary: #E3E9F2;
+  --text-muted: #94A3B8;
+  --accent-midnight: #7CA0C7;
+  --accent-hover: #A4C2E4;
+  --accent-soft: #1D2A3D;
+  --border-warm: #26354A;
+  --border-subtle: #1F2C3F;
+  --shadow-soft: 0 16px 45px rgba(0, 0, 0, 0.45);
+  --drop-cap-color: #7CA0C7;
+  --container-bg: #171F2C;
+  --divider-color: #26354A;
+  --quote-color: #A4C2E4;
+  --quote-border: #415A77;
+  --footer-color: #7E90A6;
+  --theme-toggle-bg: #7CA0C7;
+  --theme-toggle-color: #0F141C;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+html, body {
+  min-height: 100vh;
+  width: 100%;
+}
+
+body {
+  background-color: var(--bg-warm);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  line-height: 1.7;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 32px 24px;
+}
+
+/* Floating Navigation Controls */
+.back-link {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: var(--card-bg);
+  color: var(--text-main);
+  border: 1px solid var(--border-warm);
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 600;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  transition: all 0.25s ease;
+}
+
+.back-link:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-midnight);
+  color: var(--accent-midnight);
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--theme-toggle-bg);
+  color: var(--theme-toggle-color);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 600;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  transition: all 0.25s ease;
+}
+
+.theme-toggle:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* Main Story Landing & Reader Container (Shared structure with Dreamy Destiny) */
+.container {
+  background: var(--card-bg);
+  width: 100%;
+  max-width: 1100px;
+  margin: 36px auto 40px;
+  border-radius: 24px;
+  padding: 48px 56px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border-warm);
+  position: relative;
+  z-index: 1;
+}
+
+/* Header Banner */
+.story-header-banner {
+  text-align: center;
+}
+
+.title-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent-midnight);
+  background: var(--accent-soft);
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  border: 1px solid rgba(124, 160, 199, 0.3);
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 5vw, 3.4rem);
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.15;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+  border: none;
+  padding: 0;
+}
+
+.story-tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.22rem;
+  color: var(--text-muted);
+}
+
+.author-credit {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  letter-spacing: 1px;
+  color: var(--accent-midnight);
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+.divider {
+  height: 1px;
+  background-color: var(--border-warm);
+  margin: 32px 0;
+  border: none;
+}
+
+/* Character & Overview Sections (Mirrors Dreamy Destiny layout) */
+.story-section {
+  margin-bottom: 32px;
+}
+
+.section-heading {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-heading i {
+  color: var(--accent-midnight);
+  font-size: 1.1rem;
+}
+
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.character-card {
+  background: var(--bg-warm);
+  padding: 20px 24px;
+  border-radius: 14px;
+  border: 1px solid var(--border-warm);
+}
+
+.char-name {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 2px;
+}
+
+.char-role {
+  display: inline-block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent-midnight);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.char-desc {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.overview-box {
+  background: var(--bg-warm);
+  border: 1px solid var(--border-warm);
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.overview-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.overview-item i {
+  color: var(--accent-midnight);
+  margin-top: 4px;
+  font-size: 0.9rem;
+}
+
+/* Reading divider banner */
+.reading-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 44px 0 32px;
+}
+
+.reading-divider::before,
+.reading-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--border-warm);
+}
+
+.reading-divider span {
+  padding: 6px 18px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: var(--accent-midnight);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  border: 1px solid rgba(124, 160, 199, 0.3);
+}
+
+/* Story Narrative Prose Typography */
+p {
+  font-family: var(--font-serif);
+  margin: 1.6rem 0;
+  color: var(--text-main);
+  font-size: clamp(1.15rem, 2.4vw, 1.35rem);
+  line-height: 1.85;
+}
+
+.first-paragraph {
+  font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+  line-height: 1.9;
+}
+
+.drop-cap {
+  font-size: clamp(3.2rem, 6vw, 4.6rem);
+  line-height: 0.8;
+  float: left;
+  margin-right: 0.6rem;
+  margin-top: 0.2rem;
+  color: var(--drop-cap-color);
+  font-weight: 700;
+  font-family: var(--font-serif);
+}
+
+.section-divider {
+  text-align: center;
+  margin: 2.8rem 0;
+  position: relative;
+}
+
+.section-divider::before {
+  content: "♦ ♦ ♦";
+  letter-spacing: 0.8rem;
+  color: var(--divider-color);
+  font-size: 0.9rem;
+}
+
+.pull-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.3rem, 3vw, 1.65rem);
+  color: var(--quote-color);
+  margin: 2.5rem 0;
+  padding: 1.2rem 2rem;
+  border-left: 3px solid var(--quote-border);
+  background-color: var(--accent-soft);
+  border-radius: 0 12px 12px 0;
+}
+
+.story-footer {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-warm);
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  color: var(--footer-color);
+  text-align: center;
+  line-height: 1.6;
+}
+
+.story-footer a {
+  color: var(--accent-midnight);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.story-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  body {
+    padding: 24px 16px;
+  }
+
+  .container {
+    padding: 32px 22px;
+    margin-top: 50px;
+    border-radius: 18px;
+  }
+
+  .back-link span,
+  .theme-toggle span {
+    display: none;
+  }
+
+  .back-link,
+  .theme-toggle {
+    padding: 10px 14px;
+    font-size: 1rem;
+  }
+
+  .character-grid {
+    grid-template-columns: 1fr;
+  }
+}

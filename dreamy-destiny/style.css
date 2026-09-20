@@ -43,6 +43,45 @@ body {
   padding: 32px 24px;
 }
 
+/* Publication Floating Return Button */
+.pub-back-link {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: var(--card-bg);
+  color: var(--text-main);
+  border: 1px solid var(--border-warm);
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 600;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  transition: all 0.25s ease;
+}
+
+.pub-back-link:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-rose);
+  color: var(--accent-rose);
+  box-shadow: 0 6px 18px rgba(217, 119, 127, 0.15);
+}
+
+@media (max-width: 768px) {
+  .pub-back-link span {
+    display: none;
+  }
+  .pub-back-link {
+    padding: 10px 14px;
+  }
+}
+
 /* ==========================================================================
    Landing Page — Full Width Layout
    ========================================================================== */

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Literary Room — Stories & Novels by Snehil Pandey</title>
+  <meta name="description" content="An independent personal literary publication featuring serialised web novels, intimate narratives, and short philosophical tales by Snehil Pandey.">
+
+  <!-- Typography: Cormorant Garamond (Editorial Display Serif) & Plus Jakarta Sans (Interface Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Soft Ambient Radial Glow Atmosphere -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <div class="site-wrapper">
+
+    <!-- Masthead & Literary Navigation Bar -->
+    <header class="site-nav">
+      <a href="./" class="nav-brand" aria-label="The Literary Room Homepage">
+        <div class="nav-brand-mark">S</div>
+        <div class="nav-brand-text">
+          <span class="nav-title">The Literary Room</span>
+          <span class="nav-subtitle">Personal Publication</span>
+        </div>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="#featured" class="nav-link"><i class="fa-regular fa-star"></i> Featured</a></li>
+          <li><a href="#stories" class="nav-link"><i class="fa-solid fa-book-open"></i> Stories</a></li>
+          <li><a href="#about" class="nav-link"><i class="fa-regular fa-user"></i> About Author</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Editorial Hero Section -->
+    <section class="editorial-hero">
+      <div class="hero-badge">
+        <i class="fa-solid fa-feather-pointed"></i>
+        <span>Stories • Serialised Novels • Quiet Realism</span>
+      </div>
+
+      <h1 class="hero-headline">
+        Where words linger in <em>the quiet spaces</em> between thoughts.
+      </h1>
+
+      <p class="hero-statement">
+        Welcome to my personal literary archive. Here, I write character-driven web novels, introspective standalones, and intimate domestic narratives that explore silence, longing, and subtle shifts in the human heart.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#featured" class="btn-hero-primary">
+          <span>Read Featured Story</span>
+          <i class="fa-solid fa-arrow-down"></i>
+        </a>
+        <a href="#stories" class="btn-hero-secondary">
+          <span>Browse All Works</span>
+          <i class="fa-solid fa-layer-group"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- 1. Featured Work Presentation (Editorial Cover Display) -->
+    <section id="featured" aria-labelledby="featured-label">
+      <div class="section-label" id="featured-label">
+        <span>Featured Publication</span>
+      </div>
+
+      <article class="featured-story-cover">
+        <div class="cover-content">
+          <div class="cover-meta-strip">
+            <span class="pill-featured">
+              <i class="fa-solid fa-sparkles"></i> Editors' Pick
+            </span>
+            <span class="status-pill status-ongoing">
+              <span class="pulse-dot"></span> Ongoing Serial
+            </span>
+            <span class="genre-pill">Romance • Slice of Life</span>
+          </div>
+
+          <h2 class="cover-title">Dreamy Destiny</h2>
+          <p class="cover-hook">“Some destinies begin quietly.”</p>
+          <p class="cover-synopsis">
+            A sweet, fluttery, and intimate journey following Muse and Sylvia during the quiet, everyday moments leading up to their wedding day. Between unspoken glances, apartment rules, and shared silence, love grows in the details.
+          </p>
+
+          <div class="cover-spec-grid">
+            <div class="spec-item">
+              <span class="spec-label">Live Content</span>
+              <span class="spec-value">5 Chapters</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Reading Time</span>
+              <span class="spec-value">~25 Minutes</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Format</span>
+              <span class="spec-value">Web Novel Reader</span>
+            </div>
+          </div>
+
+          <div class="cover-actions">
+            <a href="./dreamy-destiny/" class="btn-cover-read">
+              <i class="fa-solid fa-book-open-reader"></i>
+              <span>Open Interactive Reader</span>
+            </a>
+            <a href="./dreamy-destiny/#toc" class="btn-cover-secondary">
+              <i class="fa-solid fa-list-ul"></i>
+              <span>Table of Contents</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Atmospheric Literary Quote & Character Composition -->
+        <aside class="cover-artwork" aria-label="Story Excerpt & Atmosphere">
+          <div class="artwork-header">
+            <span>Intimate Romance</span>
+            <span>By Snehil Pandey</span>
+          </div>
+
+          <div class="artwork-quote-card">
+            <p class="artwork-quote-text">
+              “You seem like the type who will notice something, decide it isn't important enough to mention, keep it inside, and then somehow remember it six months later.”
+            </p>
+            <div class="artwork-quote-author">— Sylvia, Chapter 4</div>
+          </div>
+
+          <div class="artwork-characters-preview">
+            <div class="char-chip">
+              <i class="fa-regular fa-user"></i>
+              <span>Muse</span>
+            </div>
+            <div class="char-chip">
+              <i class="fa-regular fa-heart"></i>
+              <span>Sylvia</span>
+            </div>
+          </div>
+        </aside>
+      </article>
+    </section>
+
+    <!-- 2. Story Collection Section -->
+    <section id="stories" aria-labelledby="collection-label">
+      <div class="section-label" id="collection-label">
+        <span>Story Collection & Archive</span>
+      </div>
+
+      <!-- Filters & Live Client-Side Search -->
+      <div class="collection-header-strip">
+        <div class="filter-pills" role="tablist" aria-label="Filter Stories by Category">
+          <button class="filter-pill active" data-filter="all" role="tab" aria-selected="true">
+            <i class="fa-solid fa-layer-group"></i> All Stories
+          </button>
+          <button class="filter-pill" data-filter="completed" role="tab" aria-selected="false">
+            <i class="fa-solid fa-circle-check"></i> Completed
+          </button>
+          <button class="filter-pill" data-filter="ongoing" role="tab" aria-selected="false">
+            <i class="fa-solid fa-pen-nib"></i> Ongoing Serials
+          </button>
+          <button class="filter-pill" data-filter="romance" role="tab" aria-selected="false">
+            <i class="fa-solid fa-heart"></i> Romance
+          </button>
+          <button class="filter-pill" data-filter="mystery" role="tab" aria-selected="false">
+            <i class="fa-solid fa-compass"></i> Mystery & Tale
+          </button>
+        </div>
+
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="search" id="storySearch" class="search-input" placeholder="Search by title, character..." aria-label="Search stories">
+        </div>
+      </div>
+
+      <!-- Stories Responsive Grid (3 columns on desktop, 2 on tablet, 1 on mobile) -->
+      <div class="stories-grid" id="storiesGrid">
+
+        <!-- Story 1: How Do We Even Think? (Thematic Midnight Twilight Palette) -->
+        <article class="story-card theme-midnight active-story" data-status="completed" data-genre="mystery philosophy" data-title="How Do We Even Think?" data-search="how do we even think muse philosophy mystery standalone cosmos ceiling">
+          <!-- Row 1: Header Grid -->
+          <div class="card-header-grid">
+            <span class="status-pill status-completed">
+              <i class="fa-solid fa-check"></i> Completed
+            </span>
+            <span class="genre-pill">Mysterious Tale • Standalone</span>
+          </div>
+
+          <!-- Row 2: Title Group -->
+          <div class="card-title-group">
+            <span class="story-num">01</span>
+            <h3 class="story-title">How Do We Even Think?</h3>
+            <p class="story-hook">“Some thoughts arrive without a sound. And some never leave.”</p>
+          </div>
+
+          <!-- Row 3: Description Group -->
+          <div class="card-desc-group">
+            <p class="story-desc">
+              A boy the world seemed to forget lies sprawled on the cold floor, casting questions into the void until the universe bends. A poignant, introspective tale about consciousness, stillness, and human longing.
+            </p>
+          </div>
+
+          <!-- Row 4: Stats Grid -->
+          <div class="story-stats-grid">
+            <div class="stat-badge">
+              <i class="fa-regular fa-file-lines"></i>
+              <span>1 Chapter</span>
+            </div>
+            <div class="stat-badge">
+              <i class="fa-regular fa-clock"></i>
+              <span>~5 Min Read</span>
+            </div>
+            <div class="stat-badge">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>Complete</span>
+            </div>
+          </div>
+
+          <!-- Row 5: Action Footer Grid -->
+          <div class="card-footer-grid">
+            <a href="./how-do-we-even-think/" class="read-btn primary">
+              <span>Read Story</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- Story 2: Dreamy Destiny (Thematic Muted Rose Palette) -->
+        <article class="story-card theme-rose active-story" data-status="ongoing" data-genre="romance" data-title="Dreamy Destiny" data-search="dreamy destiny muse sylvia romance slice of life wedding serial chapters">
+          <!-- Row 1: Header Grid -->
+          <div class="card-header-grid">
+            <span class="status-pill status-ongoing">
+              <span class="pulse-dot"></span> Ongoing Serial
+            </span>
+            <span class="genre-pill">Romance • Slice of Life</span>
+          </div>
+
+          <!-- Row 2: Title Group -->
+          <div class="card-title-group">
+            <span class="story-num">02</span>
+            <h3 class="story-title">Dreamy Destiny</h3>
+            <p class="story-hook">“Some destinies begin quietly.”</p>
+          </div>
+
+          <!-- Row 3: Description Group -->
+          <div class="card-desc-group">
+            <p class="story-desc">
+              A sweet, fluttery, and intimate journey following Muse and Sylvia during the quiet, everyday moments leading up to their wedding day. Between unspoken glances, apartment rules, and shared silence, love grows in the details.
+            </p>
+          </div>
+
+          <!-- Row 4: Stats Grid -->
+          <div class="story-stats-grid">
+            <div class="stat-badge">
+              <i class="fa-regular fa-bookmark"></i>
+              <span>5 Chapters Live</span>
+            </div>
+            <div class="stat-badge">
+              <i class="fa-regular fa-clock"></i>
+              <span>~25 Min Read</span>
+            </div>
+            <div class="stat-badge">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              <span>Interactive</span>
+            </div>
+          </div>
+
+          <!-- Row 5: Action Footer Grid -->
+          <div class="card-footer-grid">
+            <a href="./dreamy-destiny/" class="read-btn primary">
+              <span>Read Story</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- Story 3: Whispers in the Code (Thematic Sage Emerald Palette) -->
+        <article class="story-card theme-emerald placeholder-card" data-status="upcoming" data-genre="romance" data-title="Whispers in the Code" data-search="whispers in the code romance workplace engineers campus draft">
+          <!-- Row 1: Header Grid -->
+          <div class="card-header-grid">
+            <span class="status-pill status-upcoming">
+              <i class="fa-solid fa-clock"></i> In Development
+            </span>
+            <span class="genre-pill">Romance • Workplace</span>
+          </div>
+
+          <!-- Row 2: Title Group -->
+          <div class="card-title-group">
+            <span class="story-num">03</span>
+            <h3 class="story-title">Whispers in the Code</h3>
+            <p class="story-hook">“Some algorithms are written in the heart.”</p>
+          </div>
+
+          <!-- Row 3: Description Group -->
+          <div class="card-desc-group">
+            <p class="story-desc">
+              An upcoming modern slice-of-life romance following two software engineers whose paths cross in the late-night quiet of a bustling tech campus.
+            </p>
+          </div>
+
+          <!-- Row 4: Stats Grid -->
+          <div class="story-stats-grid">
+            <div class="stat-badge">
+              <i class="fa-regular fa-calendar-check"></i>
+              <span>Drafting</span>
+            </div>
+            <div class="stat-badge">
+              <i class="fa-solid fa-lock"></i>
+              <span>Unreleased</span>
+            </div>
+            <div class="stat-badge">
+              <i class="fa-solid fa-mug-hot"></i>
+              <span>Serial Novel</span>
+            </div>
+          </div>
+
+          <!-- Row 5: Action Footer Grid -->
+          <div class="card-footer-grid">
+            <button class="read-btn disabled" disabled>
+              <span>Coming Soon</span>
+              <i class="fa-solid fa-hourglass-half"></i>
+            </button>
+          </div>
+        </article>
+
+        <!-- Story 4: The Late Train to Kyoto (Thematic Warm Amber Palette) -->
+        <article class="story-card theme-amber placeholder-card" data-status="upcoming" data-genre="upcoming" data-title="The Late Train to Kyoto" data-search="the late train to kyoto standalone fiction novella travel encounters">
+          <!-- Row 1: Header Grid -->
+          <div class="card-header-grid">
+            <span class="status-pill status-upcoming">
+              <i class="fa-solid fa-sparkles"></i> Concept
+            </span>
+            <span class="genre-pill">Short Fiction • Novella</span>
+          </div>
+
+          <!-- Row 2: Title Group -->
+          <div class="card-title-group">
+            <span class="story-num">04</span>
+            <h3 class="story-title">The Late Train to Kyoto</h3>
+            <p class="story-hook">“We only meet the ones who change us when we are not looking.”</p>
+          </div>
+
+          <!-- Row 3: Description Group -->
+          <div class="card-desc-group">
+            <p class="story-desc">
+              A standalone novella about fleeting encounters, warm paper lanterns, and conversations that linger long after the tracks have gone quiet.
+            </p>
+          </div>
+
+          <!-- Row 4: Stats Grid -->
+          <div class="story-stats-grid">
+            <div class="stat-badge">
+              <i class="fa-solid fa-pen-ruler"></i>
+              <span>Outlining</span>
+            </div>
+            <div class="stat-badge">
+              <i class="fa-solid fa-lock"></i>
+              <span>Unreleased</span>
+            </div>
+            <div class="stat-badge">
+              <i class="fa-solid fa-train"></i>
+              <span>Novella</span>
+            </div>
+          </div>
+
+          <!-- Row 5: Action Footer Grid -->
+          <div class="card-footer-grid">
+            <button class="read-btn disabled" disabled>
+              <span>Coming Soon</span>
+              <i class="fa-solid fa-hourglass-half"></i>
+            </button>
+          </div>
+        </article>
+
+        <!-- Dynamic Empty State -->
+        <div class="no-results-msg" id="noResultsMsg">
+          <i class="fa-regular fa-folder-open" style="font-size: 2rem; margin-bottom: 12px; color: var(--text-light);"></i>
+          <p>No stories found matching your filter or search query.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. Author Introduction & Philosophy -->
+    <section class="author-profile-section" id="about" aria-labelledby="about-heading">
+      <div class="author-avatar" aria-hidden="true">S</div>
+      <div class="author-bio-content">
+        <h3 id="about-heading">About the Author & Writing Philosophy</h3>
+        <p>
+          I'm <strong>Snehil Pandey</strong> (also writing under <em>Still Muse</em>). I write quiet, emotionally observant fiction focusing on the subtle psychology of everyday moments—the sentences people don't say, the domestic routines that build trust, and the cosmic questions asked while staring at a ceiling fan.
+        </p>
+        <div class="author-social-links">
+          <a href="https://github.com/snehil-pandey" target="_blank" rel="noopener noreferrer" class="social-link">
+            <i class="fa-brands fa-github"></i> GitHub Profile
+          </a>
+          <a href="https://www.wattpad.com/user/still_muse" target="_blank" rel="noopener noreferrer" class="social-link">
+            <i class="fa-solid fa-book"></i> Wattpad (@still_muse)
+          </a>
+          <a href="https://github.com/snehil-pandey/web-stories" target="_blank" rel="noopener noreferrer" class="social-link">
+            <i class="fa-solid fa-code-fork"></i> Source Repository
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Tasteful Publication Footer -->
+    <footer class="site-footer">
+      <div class="footer-left">
+        <span>The Literary Room &bull; Crafted by <strong>Snehil Pandey</strong> &bull; <span id="year"></span></span>
+      </div>
+      <div class="footer-right">
+        <a href="#featured" class="footer-link">Featured</a>
+        <a href="#stories" class="footer-link">Archive</a>
+        <a href="https://github.com/snehil-pandey/web-stories" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Search & Filter Micro-Engine -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const filterPills = document.querySelectorAll('.filter-pill');
+    const searchInput = document.getElementById('storySearch');
+    const cards = document.querySelectorAll('.story-card');
+    const noResultsMsg = document.getElementById('noResultsMsg');
+
+    let activeFilter = 'all';
+    let searchQuery = '';
+
+    function applyFilters() {
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const matchesCategory =
+          activeFilter === 'all' ||
+          (activeFilter === 'completed' && card.dataset.status === 'completed') ||
+          (activeFilter === 'ongoing' && card.dataset.status === 'ongoing') ||
+          (activeFilter === 'romance' && card.dataset.genre.includes('romance')) ||
+          (activeFilter === 'mystery' && card.dataset.genre.includes('mystery'));
+
+        const searchableText = (card.dataset.search || '').toLowerCase();
+        const matchesSearch = !searchQuery || searchableText.includes(searchQuery);
+
+        if (matchesCategory && matchesSearch) {
+          card.style.display = 'grid';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      noResultsMsg.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    filterPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        filterPills.forEach(p => {
+          p.classList.remove('active');
+          p.setAttribute('aria-selected', 'false');
+        });
+        pill.classList.add('active');
+        pill.setAttribute('aria-selected', 'true');
+
+        activeFilter = pill.getAttribute('data-filter');
+        applyFilters();
+      });
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.trim().toLowerCase();
+      applyFilters();
+    });
+  </script>
+</body>
+</html>
