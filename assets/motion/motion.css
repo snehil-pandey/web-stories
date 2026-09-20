@@ -328,11 +328,21 @@ html.js-motion-ready:not(.reduced-motion) [data-motion-stagger].is-revealed > * 
 
 .reading-content p,
 .reading-content .chat-msg {
-  margin-bottom: var(--reader-paragraph-gap) !important;
-  line-height: var(--reader-line-height) !important;
+  margin-bottom: var(--reader-paragraph-gap);
+  line-height: var(--reader-line-height);
   animation: proseFade 260ms var(--motion-ease-editorial) forwards;
   transition: margin-bottom var(--motion-duration-snappy) var(--motion-ease-soft),
               line-height var(--motion-duration-snappy) var(--motion-ease-soft);
+}
+
+.reading-content blockquote p {
+  margin-bottom: 8px !important;
+  line-height: 1.6 !important;
+}
+
+.reading-content blockquote p:last-child,
+.reading-content blockquote > *:last-child {
+  margin-bottom: 0 !important;
 }
 
 @keyframes proseFade {

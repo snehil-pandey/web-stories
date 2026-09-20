@@ -678,10 +678,20 @@
           el.style.setProperty('line-height', lineHeightVal, 'important');
         });
 
-        const paragraphs = document.querySelectorAll('.reading-content p, .reading-content .chat-msg');
+        const paragraphs = document.querySelectorAll('.reading-content p:not(blockquote p), .reading-content .chat-msg');
         paragraphs.forEach(p => {
           p.style.setProperty('margin-bottom', paragraphGapVal, 'important');
           p.style.setProperty('line-height', lineHeightVal, 'important');
+        });
+
+        const quoteParagraphs = document.querySelectorAll('.reading-content blockquote p');
+        quoteParagraphs.forEach(p => {
+          if (p === p.parentElement.lastElementChild) {
+            p.style.setProperty('margin-bottom', '0px', 'important');
+          } else {
+            p.style.setProperty('margin-bottom', '8px', 'important');
+          }
+          p.style.setProperty('line-height', '1.6', 'important');
         });
 
         // 3. Update active UI pills in settings modal

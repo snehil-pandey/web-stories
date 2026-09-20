@@ -372,12 +372,22 @@
 .reading-content blockquote {
   border-left: 3px solid var(--accent-theme, #D9777F);
   background: var(--accent-theme-soft, #FDF2F4);
-  margin: 20px 0;
-  padding: clamp(10px, 2.5vw, 14px) clamp(14px, 3vw, 22px);
+  margin: clamp(12px, 2.2vw, 16px) 0;
+  padding: clamp(8px, 1.8vw, 12px) clamp(14px, 3vw, 20px);
   font-style: italic;
   border-radius: 0 10px 10px 0;
   color: var(--text-main);
-  line-height: 1.75;
+  line-height: 1.65;
+}
+
+.reading-content blockquote p {
+  margin-bottom: 8px;
+  line-height: inherit;
+}
+
+.reading-content blockquote p:last-child,
+.reading-content blockquote > *:last-child {
+  margin-bottom: 0;
 }
 
 .reading-content em,
