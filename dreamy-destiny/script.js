@@ -87,14 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Settings Elements
   const btnOpenSettings = document.getElementById('btnOpenSettings');
   const btnCloseSettings = document.getElementById('btnCloseSettings');
-  const btnSetPin = document.getElementById('btnSetPin');
-  const btnRemovePin = document.getElementById('btnRemovePin');
   const btnClearCache = document.getElementById('btnClearCache');
   const btnClearProgress = document.getElementById('btnClearProgress');
-
-  // PIN Auth Elements
-  const btnVerifyPin = document.getElementById('btnVerifyPin');
-  const btnCancelPinAuth = document.getElementById('btnCancelPinAuth');
 
   // Event Listeners
   if (btnStartReading) btnStartReading.addEventListener('click', () => startReadingFromBeginning());
@@ -105,15 +99,19 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnNextChap) btnNextChap.addEventListener('click', () => navigateChapter(1));
   if (readingArea) readingArea.addEventListener('scroll', handleThrottledScroll);
 
-  // Settings & PIN Events
+  // Settings Events
   if (btnOpenSettings) btnOpenSettings.addEventListener('click', openSettingsModal);
   if (btnCloseSettings) btnCloseSettings.addEventListener('click', closeSettingsModal);
-  if (btnSetPin) btnSetPin.addEventListener('click', handleSetPin);
-  if (btnRemovePin) btnRemovePin.addEventListener('click', handleRemovePin);
   if (btnClearCache) btnClearCache.addEventListener('click', handleClearCache);
   if (btnClearProgress) btnClearProgress.addEventListener('click', handleClearProgress);
-  if (btnVerifyPin) btnVerifyPin.addEventListener('click', handleVerifyPinAuth);
-  if (btnCancelPinAuth) btnCancelPinAuth.addEventListener('click', () => closePinAuthModal());
+
+  // Theme & Share Controls
+  const themeToggle = document.getElementById('themeToggle');
+  if (themeToggle) themeToggle.addEventListener('click', toggleThemeMode);
+  initThemeMode();
+
+  const btnShareStory = document.getElementById('btnShareStory');
+  if (btnShareStory) btnShareStory.addEventListener('click', handleShareStory);
 
   // Global Shortcuts
   document.addEventListener('keydown', handleGlobalKeydown);
@@ -167,8 +165,6 @@ function checkSavedProgress() {
     if (continueBox) continueBox.style.display = 'none';
     if (startBtnLabel) startBtnLabel.innerText = 'Start Reading';
   }
-
-  updatePinStatusUI();
 }
 
 function getSavedState() {
@@ -194,15 +190,6 @@ function saveState(index, scrollPercent) {
 }
 
 function handleContinueReading() {
-  const pinHash = localStorage.getItem('dreamy_destiny_pin_hash');
-  if (pinHash) {
-    openPinAuthModal();
-  } else {
-    proceedToContinueReading();
-  }
-}
-
-function proceedToContinueReading() {
   const saved = getSavedState();
   if (saved) {
     currentChapterIndex = saved.index;
@@ -482,107 +469,11 @@ function navigateChapter(direction) {
 function openSettingsModal() {
   const modal = document.getElementById('settingsModal');
   if (modal) modal.classList.add('active');
-  updatePinStatusUI();
 }
 
 function closeSettingsModal() {
   const modal = document.getElementById('settingsModal');
   if (modal) modal.classList.remove('active');
-}
-
-// Local PIN Protection (Web Crypto Salted Hashing)
-async function hashPin(pin, salt) {
-  const encoder = new TextEncoder();
-  const keyMaterial = await crypto.subtle.importKey('raw', encoder.encode(pin), 'PBKDF2', false, ['deriveBits']);
-  const bits = await crypto.subtle.deriveBits({
-    name: 'PBKDF2',
-    salt: encoder.encode(salt),
-    iterations: 10000,
-    hash: 'SHA-256'
-  }, keyMaterial, 256);
-  return btoa(String.fromCharCode(...new Uint8Array(bits)));
-}
-
-async function handleSetPin() {
-  const input = document.getElementById('inputPinCode');
-  const val = input ? input.value.trim() : '';
-
-  if (!val || val.length < 4) {
-    alert('Please enter a 4 to 6 digit PIN.');
-    return;
-  }
-
-  const salt = 'dreamy_' + Math.random().toString(36).substring(2);
-  const hash = await hashPin(val, salt);
-
-  localStorage.setItem('dreamy_destiny_pin_salt', salt);
-  localStorage.setItem('dreamy_destiny_pin_hash', hash);
-
-  if (input) input.value = '';
-  updatePinStatusUI();
-  alert('Reader PIN has been set successfully.');
-}
-
-function handleRemovePin() {
-  localStorage.removeItem('dreamy_destiny_pin_salt');
-  localStorage.removeItem('dreamy_destiny_pin_hash');
-  updatePinStatusUI();
-  alert('Reader PIN has been removed.');
-}
-
-function updatePinStatusUI() {
-  const statusElem = document.getElementById('pinStatusText');
-  const btnRemove = document.getElementById('btnRemovePin');
-  const pinHash = localStorage.getItem('dreamy_destiny_pin_hash');
-
-  if (pinHash) {
-    if (statusElem) statusElem.innerHTML = 'Status: <span style="color: #38A169;">PIN Protected</span>';
-    if (btnRemove) btnRemove.style.display = 'inline-block';
-  } else {
-    if (statusElem) statusElem.innerHTML = 'Status: <span style="color: var(--text-muted);">No PIN Set</span>';
-    if (btnRemove) btnRemove.style.display = 'none';
-  }
-}
-
-// PIN Verification Modal
-function openPinAuthModal() {
-  const modal = document.getElementById('pinAuthModal');
-  const input = document.getElementById('inputAuthPin');
-  const err = document.getElementById('pinAuthError');
-  if (input) input.value = '';
-  if (err) err.style.display = 'none';
-  if (modal) modal.classList.add('active');
-}
-
-function closePinAuthModal() {
-  const modal = document.getElementById('pinAuthModal');
-  if (modal) modal.classList.remove('active');
-}
-
-async function handleVerifyPinAuth() {
-  const input = document.getElementById('inputAuthPin');
-  const err = document.getElementById('pinAuthError');
-  const val = input ? input.value.trim() : '';
-
-  const salt = localStorage.getItem('dreamy_destiny_pin_salt');
-  const hash = localStorage.getItem('dreamy_destiny_pin_hash');
-
-  if (!salt || !hash) {
-    closePinAuthModal();
-    proceedToContinueReading();
-    return;
-  }
-
-  const inputHash = await hashPin(val, salt);
-  if (inputHash === hash) {
-    closePinAuthModal();
-    proceedToContinueReading();
-  } else {
-    if (err) {
-      err.innerText = 'Incorrect PIN. Please try again.';
-      err.style.display = 'block';
-    }
-  }
 }
 
 // Storage Management Controls
@@ -613,5 +504,59 @@ function handleGlobalKeydown(e) {
     navigateChapter(-1);
   } else if (e.key === 'ArrowRight') {
     navigateChapter(1);
+  }
+}
+
+// Theme Switcher (Romance Dark / Light Mood Mode)
+function initThemeMode() {
+  const saved = localStorage.getItem('dreamy_destiny_theme');
+  if (saved === 'dark') {
+    document.documentElement.classList.add('dark-mode');
+    document.body.classList.add('dark-mode');
+  } else {
+    document.documentElement.classList.remove('dark-mode');
+    document.body.classList.remove('dark-mode');
+  }
+  updateThemeToggleUI();
+}
+
+function toggleThemeMode() {
+  const isCurrentlyDark = document.body.classList.contains('dark-mode');
+  if (isCurrentlyDark) {
+    document.documentElement.classList.remove('dark-mode');
+    document.body.classList.remove('dark-mode');
+    localStorage.setItem('dreamy_destiny_theme', 'light');
+  } else {
+    document.documentElement.classList.add('dark-mode');
+    document.body.classList.add('dark-mode');
+    localStorage.setItem('dreamy_destiny_theme', 'dark');
+  }
+  updateThemeToggleUI();
+}
+
+function updateThemeToggleUI() {
+  const toggleBtn = document.getElementById('themeToggle');
+  if (!toggleBtn) return;
+  const isDark = document.body.classList.contains('dark-mode');
+  const icon = toggleBtn.querySelector('i');
+  const span = toggleBtn.querySelector('span');
+  if (icon) icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+  if (span) span.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+}
+
+// Share Story Handler
+function handleShareStory() {
+  const shareData = {
+    title: 'Dreamy Destiny — Snehil Pandey',
+    text: '“Some destinies begin quietly.” Read this intimate web novel following Muse and Sylvia by Snehil Pandey.',
+    url: window.location.href
+  };
+
+  if (navigator.share) {
+    navigator.share(shareData).catch(() => {});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      alert('Link copied to clipboard!');
+    });
   }
 }

@@ -14,7 +14,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=2.2">
+
+  <!-- Immediate Theme Initializer to prevent white flash -->
+  <script>
+    if (localStorage.getItem('dreamy_destiny_theme') === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+    }
+  </script>
 
   <!-- Marked.js CDN for Client-side Markdown Rendering -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -26,6 +33,12 @@
     <i class="fa-solid fa-arrow-left"></i>
     <span>All Stories</span>
   </a>
+
+  <!-- Dark Mode / Romance Mood Toggle -->
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <i class="fas fa-moon"></i>
+    <span>Dark Mode</span>
+  </button>
 
   <!-- Landing Page -->
   <main class="landing-card">
@@ -101,8 +114,11 @@
       </button>
 
       <div class="settings-link-area">
+        <button class="btn-settings" id="btnShareStory" aria-label="Share Story">
+          <i class="fa-solid fa-share-nodes"></i> Share Story
+        </button>
         <button class="btn-settings" id="btnOpenSettings" aria-label="Reading Settings">
-          <i class="fa-solid fa-gear"></i> Reader Settings
+          <i class="fa-solid fa-gear"></i> Reader Settings & Storage
         </button>
       </div>
     </div>
@@ -119,20 +135,6 @@
       </div>
       <div class="settings-body">
         
-        <!-- PIN Privacy Section -->
-        <div class="settings-group">
-          <h4 class="settings-group-title"><i class="fa-solid fa-lock"></i> Reader PIN Protection</h4>
-          <p class="settings-desc">Optionally lock your saved reading position locally. PIN is verified on your device only.</p>
-
-          <div id="pinStatusText" class="pin-status-text">Status: <span>No PIN Set</span></div>
-
-          <div class="pin-form-group">
-            <input type="password" id="inputPinCode" maxlength="6" placeholder="Enter 4-6 digit PIN" class="pin-input" />
-            <button class="btn-pin-action" id="btnSetPin">Set PIN</button>
-            <button class="btn-pin-action btn-danger" id="btnRemovePin" style="display: none;">Remove PIN</button>
-          </div>
-        </div>
-
         <!-- Data Management Section -->
         <div class="settings-group">
           <h4 class="settings-group-title"><i class="fa-solid fa-database"></i> Storage Management</h4>
@@ -143,24 +145,6 @@
           </div>
         </div>
 
-      </div>
-    </div>
-  </div>
-
-  <!-- PIN Verification Modal Popup -->
-  <div class="modal-overlay" id="pinAuthModal" role="dialog" aria-modal="true">
-    <div class="settings-modal-box pin-auth-box">
-      <div class="settings-header">
-        <h3><i class="fa-solid fa-user-lock"></i> Enter Reader PIN</h3>
-      </div>
-      <div class="settings-body" style="text-align: center;">
-        <p class="settings-desc">Please enter your PIN to access your private reading progress.</p>
-        <input type="password" id="inputAuthPin" maxlength="6" placeholder="Enter PIN" class="pin-input" style="font-size: 1.4rem; text-align: center; letter-spacing: 4px; margin: 16px 0;" />
-        <div style="display: flex; gap: 12px; justify-content: center; margin-top: 10px;">
-          <button class="btn-pin-action" id="btnVerifyPin">Unlock Progress</button>
-          <button class="btn-pin-action btn-secondary" id="btnCancelPinAuth">Cancel</button>
-        </div>
-        <p id="pinAuthError" style="color: var(--accent-rose); font-size: 0.85rem; margin-top: 10px; display: none;"></p>
       </div>
     </div>
   </div>
@@ -212,6 +196,6 @@
   </div>
 
   <!-- Application Logic -->
-  <script src="script.js"></script>
+  <script src="script.js?v=2.2"></script>
 </body>
 </html>

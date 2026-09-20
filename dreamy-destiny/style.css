@@ -20,6 +20,61 @@
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
 
+:root.dark-mode, body.dark-mode, .dark-mode {
+  --bg-warm: #1C1316;
+  --card-bg: #271A1E;
+  --text-main: #F5EAEB;
+  --text-primary: #F5EAEB;
+  --text-muted: #B8A2A8;
+  --thought-text: #B8A2A8;
+  --accent-rose: #E58E95;
+  --accent-rose-hover: #F2A4AA;
+  --accent-soft: #38242A;
+  --border-warm: #422D33;
+  --shadow-soft: 0 16px 45px rgba(18, 8, 12, 0.45);
+  --shadow-modal: 0 28px 70px rgba(18, 8, 12, 0.65);
+}
+
+body.dark-mode {
+  background-color: var(--bg-warm);
+  color: var(--text-main);
+}
+
+body.dark-mode .landing-card,
+body.dark-mode .modal-box,
+body.dark-mode .reader-header,
+body.dark-mode .reader-footer,
+body.dark-mode .chapter-drawer,
+body.dark-mode .reading-area,
+body.dark-mode .settings-modal-box,
+body.dark-mode .pub-back-link {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-warm) !important;
+  color: var(--text-main) !important;
+}
+
+body.dark-mode .character-card,
+body.dark-mode .overview-box,
+body.dark-mode .settings-header,
+body.dark-mode .progress-pill,
+body.dark-mode .btn-storage-action,
+body.dark-mode .nav-btn,
+body.dark-mode .btn-close-modal,
+body.dark-mode .btn-hamburger {
+  background-color: var(--bg-warm) !important;
+  border-color: var(--border-warm) !important;
+  color: var(--text-main) !important;
+}
+
+body.dark-mode .btn-continue {
+  background-color: var(--accent-rose) !important;
+  color: #FFFFFF !important;
+}
+
+body.dark-mode .btn-continue:hover {
+  background-color: var(--accent-rose-hover) !important;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -74,12 +129,41 @@ body {
 }
 
 @media (max-width: 768px) {
-  .pub-back-link span {
+  .pub-back-link span,
+  .theme-toggle span {
     display: none;
   }
-  .pub-back-link {
+  .pub-back-link,
+  .theme-toggle {
     padding: 10px 14px;
   }
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--accent-rose);
+  color: #FFFFFF;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 600;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(217, 119, 127, 0.25);
+  transition: all 0.25s ease;
+}
+
+.theme-toggle:hover {
+  opacity: 0.92;
+  transform: translateY(-2px);
+  background: var(--accent-rose-hover);
 }
 
 /* ==========================================================================
@@ -178,7 +262,7 @@ body {
 }
 
 .character-card {
-  background: #FAFAFA;
+  background: var(--bg-warm);
   border: 1px solid var(--border-warm);
   border-radius: 14px;
   padding: 16px 18px;
@@ -216,10 +300,10 @@ body {
 
 /* Story Overview */
 .overview-box {
-  background: var(--accent-soft);
+  background: var(--bg-warm);
   border-radius: 14px;
   padding: 18px 22px;
-  border: 1px solid #F8D7DA;
+  border: 1px solid var(--border-warm);
 }
 
 .overview-item {
@@ -327,17 +411,18 @@ body {
 
 /* Settings Modal Box & Forms */
 .settings-modal-box {
-  background: #FFFFFF;
+  background: var(--card-bg);
   width: 90vw;
   max-width: 520px;
   border-radius: 20px;
   box-shadow: var(--shadow-modal);
+  border: 1px solid var(--border-warm);
   overflow: hidden;
   animation: modalSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .settings-header {
-  background: #FAFAFA;
+  background: var(--bg-warm);
   border-bottom: 1px solid var(--border-warm);
   padding: 16px 24px;
   display: flex;
@@ -381,55 +466,6 @@ body {
   color: var(--text-muted);
   margin-bottom: 12px;
   line-height: 1.45;
-}
-
-.pin-status-text {
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.pin-status-text span {
-  color: var(--accent-rose);
-}
-
-.pin-form-group {
-  display: flex;
-  gap: 8px;
-}
-
-.pin-input {
-  flex: 1;
-  padding: 10px 14px;
-  border-radius: 10px;
-  border: 1px solid var(--border-warm);
-  font-size: 0.95rem;
-  font-family: var(--font-sans);
-  outline: none;
-}
-
-.pin-input:focus {
-  border-color: var(--accent-rose);
-}
-
-.btn-pin-action {
-  background: var(--accent-rose);
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 0.88rem;
-  cursor: pointer;
-}
-
-.btn-pin-action.btn-danger {
-  background: #E53E3E;
-}
-
-.btn-pin-action.btn-secondary {
-  background: #E2E8F0;
-  color: #4A5568;
 }
 
 .settings-btn-grid {
@@ -490,7 +526,7 @@ body {
 }
 
 .modal-box {
-  background: #FFFFFF;
+  background: var(--card-bg);
   width: 100vw;
   height: 100vh;
   border-radius: 0;
@@ -509,7 +545,7 @@ body {
 
 /* Reader Header */
 .reader-header {
-  background: #FFFFFF;
+  background: var(--card-bg);
   border-bottom: 1px solid var(--border-warm);
   padding: 14px 28px;
   display: flex;
@@ -556,8 +592,8 @@ body {
 }
 
 .btn-close-modal {
-  background: #F4EFEA;
-  border: none;
+  background: var(--bg-warm);
+  border: 1px solid var(--border-warm);
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
@@ -591,7 +627,7 @@ body {
   left: 0;
   width: 320px;
   height: 100%;
-  background: #FFFFFF;
+  background: var(--card-bg);
   border-right: 1px solid var(--border-warm);
   z-index: 30;
   transform: translateX(-100%);
@@ -641,16 +677,16 @@ body {
   flex: 1;
   padding: 48px 64px;
   overflow-y: auto;
-  background: #FCFAF7;
+  background: var(--card-bg);
 }
 
 .reading-content {
-  max-width: 920px;
+  max-width: 880px;
   margin: 0 auto;
   font-family: var(--font-serif);
   font-size: 1.28rem;
   line-height: 1.95;
-  color: #332F2C;
+  color: var(--text-primary);
 }
 
 /* Rendered Markdown Styling */
@@ -676,26 +712,26 @@ body {
   padding: 14px 22px;
   font-style: italic;
   border-radius: 0 12px 12px 0;
-  color: #4A3E3E;
+  color: var(--text-main);
   line-height: 1.8;
 }
 
 .reading-content em, 
 .reading-content em.thought {
   font-style: italic;
-  color: var(--thought-text); /* Soft muted gray #635A55 for inner thoughts / monologues */
+  color: var(--thought-text);
 }
 
 .reading-content em.chat-text {
   font-style: italic;
-  color: var(--text-primary); /* Rich black #2C2825 for text message bodies */
+  color: var(--text-primary);
 }
 
 .reading-content strong, 
 .reading-content b {
   font-family: var(--font-serif);
   font-weight: 700;
-  color: var(--text-primary); /* Rich black #2C2825 for speaker names and bold text */
+  color: var(--text-primary);
 }
 
 .reading-content hr {
@@ -747,7 +783,7 @@ body {
 
 /* Reader Footer */
 .reader-footer {
-  background: #FFFFFF;
+  background: var(--card-bg);
   border-top: 1px solid var(--border-warm);
   padding: 12px 28px;
   display: flex;
@@ -763,7 +799,7 @@ body {
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.2s;
-  background: #FFFFFF;
+  background: var(--bg-warm);
   color: var(--text-main);
 }
 
