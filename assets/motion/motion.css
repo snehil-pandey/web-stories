@@ -539,6 +539,11 @@ html.js-motion-ready:not(.reduced-motion) [data-motion-stagger].is-revealed > * 
    8. Responsive Motion Profiles (Mobile & Tablet Overrides)
    ========================================================================== */
 @media (max-width: 768px) {
+  /* Completely disable canvas rendering on mobile */
+  .atmosphere-canvas {
+    display: none !important;
+  }
+
   /* Disable 3D tilt on touch / tablet devices */
   .book-perspective-wrap {
     perspective: none !important;
@@ -550,26 +555,25 @@ html.js-motion-ready:not(.reduced-motion) [data-motion-stagger].is-revealed > * 
     transition: none !important;
   }
 
-  /* Accelerate word reveals on mobile */
-  .hero-headline .reveal-word-inner {
-    transition-duration: 400ms !important;
-  }
-
-  /* Reduced ambient glow travel to save mobile GPU cycles */
-  @keyframes ambientGlowDrift {
-    0% {
-      transform: translate3d(0, 0, 0) scale(1);
-    }
-    50% {
-      transform: translate3d(8px, -6px, 0) scale(1.015);
-    }
-    100% {
-      transform: translate3d(0, 0, 0) scale(1);
-    }
-  }
-
+  /* Make ambient glow completely static on mobile (zero continuous GPU repaint) */
   .ambient-glow {
-    animation-duration: 32s;
+    animation: none !important;
+    transform: none !important;
+    will-change: auto !important;
+  }
+
+  /* Disable button sheen loop on mobile */
+  .btn-sheen::after {
+    display: none !important;
+  }
+
+  /* Instant clean reveals on mobile for zero scroll jank */
+  [data-motion="reveal"],
+  [data-motion-stagger] > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto !important;
   }
 }
 

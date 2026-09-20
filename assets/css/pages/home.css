@@ -14,7 +14,7 @@
 .site-wrapper {
   max-width: 1240px;
   margin: 0 auto;
-  padding: clamp(16px, 3vw, 24px) clamp(16px, 3.5vw, 32px) clamp(48px, 6vw, 80px);
+  padding: clamp(20px, 4vw, 32px) clamp(20px, 5vw, 40px) clamp(48px, 6vw, 80px);
   position: relative;
   z-index: 1;
 }
@@ -1147,7 +1147,22 @@
 
 @media (max-width: 480px) {
   .site-wrapper {
-    padding: 14px 14px 48px;
+    padding: 18px 20px 56px;
+  }
+
+  .featured-story-cover {
+    padding: 28px 22px;
+    border-radius: 20px;
+  }
+
+  .story-card {
+    padding: 24px 22px 20px;
+    border-radius: 18px;
+  }
+
+  .author-profile-section {
+    padding: 28px 22px;
+    border-radius: 20px;
   }
 
   .hero-actions {
@@ -1214,16 +1229,21 @@
 
 @media (max-width: 360px) {
   .site-wrapper {
-    padding: 12px 10px 40px;
+    padding: 16px 18px 44px;
   }
 
   .featured-story-cover {
-    padding: 18px 12px;
+    padding: 24px 18px;
     border-radius: 16px;
   }
 
   .story-card {
-    padding: 18px 12px;
+    padding: 22px 18px 18px;
+    border-radius: 16px;
+  }
+
+  .author-profile-section {
+    padding: 24px 18px;
     border-radius: 16px;
   }
 

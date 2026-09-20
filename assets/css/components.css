@@ -633,8 +633,13 @@
 
 @media (max-width: 480px) {
   .landing-card {
-    padding: 24px 16px;
-    border-radius: 18px;
+    padding: 28px 22px;
+    border-radius: 20px;
+  }
+
+  .character-card,
+  .overview-box {
+    padding: 16px 18px;
   }
 
   .btn-start-reading,
@@ -661,7 +666,8 @@
 
 @media (max-width: 360px) {
   .landing-card {
-    padding: 20px 12px;
+    padding: 24px 18px;
+    border-radius: 16px;
   }
 
   .main-title {

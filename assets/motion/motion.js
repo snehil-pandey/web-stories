@@ -33,8 +33,7 @@
   function getMotionProfile() {
     if (prefersReducedMotion.matches) return 'reduced';
     const width = window.innerWidth;
-    const isLowPower = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
-    if (width < 640) return isLowPower ? 'mobile-minimal' : 'mobile';
+    if (width < 768 || isTouchDevice) return 'mobile';
     if (width < 1024) return 'tablet';
     return 'desktop';
   }
@@ -62,7 +61,7 @@
     }
 
     init(defaultTheme = 'none') {
-      if (prefersReducedMotion.matches) return;
+      if (prefersReducedMotion.matches || getMotionProfile() === 'mobile') return;
 
       this.theme = defaultTheme;
       if (this.theme === 'none') return;
@@ -120,7 +119,14 @@
     }
 
     setTheme(newTheme) {
-      if (prefersReducedMotion.matches) return;
+      if (prefersReducedMotion.matches || getMotionProfile() === 'mobile') {
+        this.stop();
+        if (this.canvas) {
+          this.canvas.classList.add('hidden');
+          if (this.ctx) this.ctx.clearRect(0, 0, this.width, this.height);
+        }
+        return;
+      }
       this.theme = newTheme;
       if (newTheme === 'none') {
         this.stop();
@@ -335,6 +341,11 @@
       const headline = document.querySelector('[data-motion-hero-headline]');
       if (!headline) return;
 
+      if (getMotionProfile() === 'mobile') {
+        headline.classList.add('revealed');
+        return;
+      }
+
       let wordIndex = 0;
       function processNode(node) {
         if (node.nodeType === Node.TEXT_NODE) {
@@ -436,7 +447,7 @@
   // ==========================================================================
   class ScrollRevealEngine {
     static init() {
-      if (prefersReducedMotion.matches) {
+      if (prefersReducedMotion.matches || getMotionProfile() === 'mobile') {
         document.querySelectorAll('[data-motion="reveal"], [data-motion-stagger] > *').forEach(el => {
           el.classList.add('is-revealed');
         });
