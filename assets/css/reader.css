@@ -310,6 +310,8 @@
   align-items: center;
   color: var(--text-main);
   transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .drawer-item:hover {
@@ -321,6 +323,26 @@
   background: var(--accent-theme-soft, #FDF2F4);
   color: var(--accent-theme, #D9777F);
   font-weight: 600;
+}
+
+.drawer-item-title {
+  flex: 1;
+}
+
+.drawer-item-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: var(--progress, 0);
+  background: var(--accent-theme, #D9777F);
+  transition: width 0.3s ease;
+  border-radius: 0 0 10px 10px;
+}
+
+/* Progress bar hover effect */
+.drawer-item:hover .drawer-item-progress {
+  background: var(--accent-theme-hover, #C06169);
 }
 
 /* ==========================================================================
@@ -340,7 +362,7 @@
 .reading-content {
   position: relative;
   z-index: 6;
-  max-width: 720px;
+  max-width: min(65ch, 90vw, 720px);
   margin: 0 auto;
   font-family: var(--font-serif);
   font-size: var(--reader-font-size, clamp(1.12rem, 3.6vw, 1.28rem));
@@ -364,7 +386,7 @@
 }
 
 .reading-content p {
-  margin-bottom: var(--reader-paragraph-gap, clamp(18px, 3.5vw, 24px));
+  margin-bottom: var(--reader-paragraph-gap, clamp(1.2em, 2.5vw, 1.6em));
   line-height: var(--reader-line-height, 1.8);
   transition: margin-bottom 0.2s ease, line-height 0.2s ease;
 }

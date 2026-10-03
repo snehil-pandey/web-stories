@@ -349,6 +349,35 @@
           this.elements.continueProgressPill.textContent = `${chap.isSpecial ? 'Special' : 'Chapter ' + (index + 1)} • ${pctDisplay}% read`;
         }
       }
+
+      // Update drawer progress bars
+      this.updateDrawerProgressBars();
+    }
+
+    updateDrawerProgressBars() {
+      if (!this.hasDrawer || !this.elements.drawerChapterList) return;
+
+      const progressItems = this.elements.drawerChapterList.querySelectorAll('.drawer-item-progress');
+      progressItems.forEach((progressEl, idx) => {
+        const chapter = this.chapters[idx];
+        if (!chapter) return;
+
+        let progress = 0;
+        if (idx === this.currentIndex) {
+          // Current chapter - get actual scroll progress
+          const area = this.elements.readingArea;
+          if (area) {
+            const maxScroll = area.scrollHeight - area.clientHeight;
+            progress = maxScroll > 0 ? area.scrollTop / maxScroll : 0;
+          }
+        } else if (idx < this.currentIndex) {
+          // Completed chapters
+          progress = 1;
+        }
+        // Future chapters remain at 0
+
+        progressEl.style.setProperty('--progress', progress);
+      });
     }
 
     checkSavedProgress() {
@@ -387,9 +416,14 @@
       this.chapters.forEach((chap, idx) => {
         const item = document.createElement('div');
         item.className = `drawer-item ${idx === this.currentIndex ? 'active' : ''}`;
-        item.textContent = chap.defaultTitle || `Chapter ${chap.id}`;
         item.setAttribute('role', 'button');
         item.setAttribute('tabindex', '0');
+
+        // Create chapter title and progress container
+        item.innerHTML = `
+          <span class="drawer-item-title">${chap.defaultTitle || `Chapter ${chap.id}`}</span>
+          <span class="drawer-item-progress" aria-hidden="true"></span>
+        `;
 
         item.addEventListener('click', () => {
           this.restoreScrollPercent = 0;
