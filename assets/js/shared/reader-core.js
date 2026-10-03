@@ -80,7 +80,8 @@
         btnCloseSettings: get('btnCloseSettings'),
         settingsModal: get('settingsModal'),
         btnClearCache: get('btnClearCache'),
-        btnClearProgress: get('btnClearProgress')
+        btnClearProgress: get('btnClearProgress'),
+        readingProgressFill: get('readingProgressFill')
       };
 
       // Ensure ambient drift layer exists inside .reader-body
@@ -356,6 +357,13 @@
           this.elements.continueProgressPill.textContent = `${chap.isSpecial ? 'Special' : 'Chapter ' + (index + 1)} • ${pctDisplay}% read`;
         }
       }
+
+      // Add pulse animation to progress indicator
+      this.elements.continueProgressPill.classList.add('progress-indicator-pulse');
+      // Remove the class after animation completes
+      setTimeout(() => {
+        this.elements.continueProgressPill.classList.remove('progress-indicator-pulse');
+      }, 600);
 
       // Update drawer progress bars
       this.updateDrawerProgressBars();
