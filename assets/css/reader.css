@@ -374,6 +374,39 @@
   transition: font-size 0.2s ease, line-height 0.2s ease;
 }
 
+/* Animate content when data-animating attribute is present */
+.reading-content[data-animating] > * {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+/* Stagger the animation for better flow */
+.reading-content[data-animating] > *:nth-child(2) {
+  animation-delay: 0.05s;
+}
+.reading-content[data-animating] > *:nth-child(3) {
+  animation-delay: 0.1s;
+}
+.reading-content[data-animating] > *:nth-child(4) {
+  animation-delay: 0.15s;
+}
+.reading-content[data-animating] > *:nth-child(5) {
+  animation-delay: 0.2s;
+}
+.reading-content[data-animating] > *:nth-child(n+6) {
+  animation-delay: 0.25s;
+}
+
+/* Disable animations for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reading-content[data-animating] > * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 .reading-content h1 {
   font-family: var(--font-serif);
   font-size: clamp(1.6rem, 4.5vw, 2.2rem);
@@ -392,23 +425,45 @@
 }
 
 .reading-content blockquote {
-  border-left: 3px solid var(--accent-theme, #D9777F);
+  border-left: 4px solid var(--accent-theme, #D9777F);
   background: var(--accent-theme-soft, #FDF2F4);
-  margin: clamp(12px, 2.2vw, 16px) 0;
-  padding: clamp(8px, 1.8vw, 12px) clamp(14px, 3vw, 20px);
+  margin: clamp(16px, 2.5vw, 24px) 0;
+  padding: clamp(12px, 3vw, 20px) clamp(16px, 4vw, 24px);
   font-style: italic;
-  border-radius: 0 10px 10px 0;
+  border-radius: 0 12px 12px 0;
   color: var(--text-main);
-  line-height: 1.65;
+  line-height: 1.7;
+  position: relative;
 }
 
 .reading-content blockquote p {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   line-height: inherit;
 }
 
 .reading-content blockquote p:last-child,
 .reading-content blockquote > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Citation attribution */
+.reading-content blockquote footer,
+.reading-content blockquote cite,
+.reading-content blockquote .attribution {
+  display: block;
+  font-size: 0.9em;
+  font-style: normal;
+  color: var(--text-muted);
+  margin-top: 16px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-warm);
+  text-align: right;
+}
+
+/* For blocks that end with a citation */
+.reading-content blockquote footer:last-child,
+.reading-content blockquote cite:last-child,
+.reading-content blockquote .attribution:last-child {
   margin-bottom: 0;
 }
 
@@ -550,4 +605,23 @@
     transform: none !important;
     opacity: 0.85 !important;
   }
+  .reading-content > * {
+    animation: none !important;
+  }
+}
+
+/* Fade-in animation for content */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-animation {
+  animation: fadeInUp 0.5s ease-out;
 }

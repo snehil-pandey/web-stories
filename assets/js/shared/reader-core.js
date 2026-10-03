@@ -291,6 +291,13 @@
         this.elements.renderedContent.textContent = markdown;
       }
 
+      // Trigger fade-in animation for content
+      this.elements.renderedContent.dataset.animating = 'true';
+      // Remove the data attribute after animation ends (assuming 0.5s from CSS)
+      setTimeout(() => {
+        delete this.elements.renderedContent.dataset.animating;
+      }, 500);
+
       // Scroll Position Restoration
       requestAnimationFrame(() => {
         if (this.elements.readingArea) {
