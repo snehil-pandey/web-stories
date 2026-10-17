@@ -16,7 +16,9 @@
     { id: 3, file: 'dreamy_destiny_03.md', defaultTitle: 'Chapter 3: The Other Side of the Table' },
     { id: 4, file: 'dreamy_destiny_04.md', defaultTitle: 'Chapter 4: Domestic Debugging' },
     { id: 5, file: 'dreamy_destiny_05.md', defaultTitle: 'Chapter 5: Things She Notices' },
-    { id: 6, file: 'dreamy_destiny_06.md', defaultTitle: 'Chapter 6: A Very Ordinary Date' }
+    { id: 6, file: 'dreamy_destiny_06.md', defaultTitle: 'Chapter 6: A Very Ordinary Date' },
+    { id: 7, file: 'dreamy_destiny_07.md', defaultTitle: 'Chapter 7: Her Side of the City' },
+    { id: 8, file: 'dreamy_destiny_08.md', defaultTitle: 'Chapter 8: The Almost Confession' }
   ];
 
   document.addEventListener('DOMContentLoaded', () => {
