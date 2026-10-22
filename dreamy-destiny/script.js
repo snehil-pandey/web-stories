@@ -18,7 +18,8 @@
     { id: 5, file: 'dreamy_destiny_05.md', defaultTitle: 'Chapter 5: Things She Notices' },
     { id: 6, file: 'dreamy_destiny_06.md', defaultTitle: 'Chapter 6: A Very Ordinary Date' },
     { id: 7, file: 'dreamy_destiny_07.md', defaultTitle: 'Chapter 7: Her Side of the City' },
-    { id: 8, file: 'dreamy_destiny_08.md', defaultTitle: 'Chapter 8: The Almost Confession' }
+    { id: 8, file: 'dreamy_destiny_08.md', defaultTitle: 'Chapter 8: The Almost Confession' },
+    { id: 9, file: 'dreamy_destiny_09.md', defaultTitle: 'Chapter 9: One Umbrella' }
   ];
 
   document.addEventListener('DOMContentLoaded', () => {
