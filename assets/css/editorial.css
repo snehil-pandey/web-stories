@@ -1,0 +1,90 @@
+/* ==========================================================================
+   Modern Minimalist Editorial Cutouts & GSAP Motion
+   Branch: feature/minimalist-editorial
+   ========================================================================== */
+
+.editorial-cutout-wrapper {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.editorial-cutout-item {
+  position: absolute;
+  pointer-events: auto;
+  user-select: none;
+  opacity: 0.25;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.08));
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.editorial-cutout-item:hover {
+  opacity: 0.65;
+}
+
+/* Placements */
+.editorial-geometric {
+  top: 4%;
+  right: -20px;
+  width: 220px;
+  height: auto;
+}
+
+.editorial-feather {
+  bottom: 8%;
+  left: 3%;
+  width: 140px;
+  height: auto;
+  transform: rotate(-35deg);
+}
+
+.editorial-sun-moon {
+  top: 15px;
+  right: 25px;
+  width: 130px;
+  height: auto;
+  opacity: 0.22;
+}
+
+.editorial-flower {
+  bottom: -30px;
+  right: 20px;
+  width: 160px;
+  height: auto;
+  opacity: 0.28;
+}
+
+/* Dark mode adjustment for line art cutouts */
+.dark-mode .editorial-cutout-item {
+  filter: invert(0.9) drop-shadow(0 10px 20px rgba(255, 255, 255, 0.05));
+  opacity: 0.35;
+}
+
+.dark-mode .editorial-cutout-item:hover {
+  opacity: 0.8;
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+  .editorial-geometric {
+    width: 130px;
+    right: -20px;
+    top: 2%;
+  }
+  .editorial-feather {
+    width: 90px;
+    left: 2%;
+    bottom: 4%;
+  }
+  .editorial-flower {
+    width: 100px;
+    right: 10px;
+  }
+  .editorial-sun-moon {
+    width: 85px;
+    right: 15px;
+  }
+}

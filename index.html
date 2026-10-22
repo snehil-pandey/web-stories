@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="assets/css/pages/home.css">
   <!-- Reusable Literary Motion Stylesheet -->
   <link rel="stylesheet" href="assets/motion/motion.css">
+  <link rel="stylesheet" href="assets/css/editorial.css">
 </head>
 <body>
 
@@ -60,7 +61,12 @@
     </header>
 
     <!-- Editorial Hero Section -->
-    <section class="editorial-hero">
+    <section class="editorial-hero" style="position: relative;">
+      <!-- Minimalist Editorial Cutouts -->
+      <div class="editorial-cutout-wrapper" aria-hidden="true">
+        <img src="assets/editorial/abstract-geometric.svg" alt="" class="editorial-cutout-item editorial-geometric" data-editorial-float data-speed="5" data-dy="10" data-rot="3" data-parallax-depth="20" data-scroll-rotate="30">
+        <img src="assets/editorial/feather-lineart.svg" alt="" class="editorial-cutout-item editorial-feather" data-editorial-float data-speed="4" data-dy="12" data-rot="5" data-parallax-depth="25">
+      </div>
       <div class="hero-badge">
         <i class="fa-solid fa-feather-pointed"></i>
         <span>Stories • Serialised Novels • Quiet Realism</span>
@@ -92,7 +98,9 @@
         <span>Featured Publication</span>
       </div>
 
-      <article class="featured-story-cover">
+      <article class="featured-story-cover" style="position: relative; overflow: hidden;">
+        <!-- Minimalist Floral Line Art -->
+        <img src="assets/editorial/line-art-flower.svg" alt="" class="editorial-cutout-item editorial-flower" aria-hidden="true" data-editorial-float data-speed="4.5" data-dy="8" data-rot="4">
         <div class="cover-content">
           <div class="cover-meta-strip">
             <span class="pill-featured">
@@ -310,7 +318,8 @@
     </section>
 
     <!-- 3. Author Introduction & Philosophy -->
-    <section class="author-profile-section" id="about" aria-labelledby="about-heading" data-motion="reveal">
+    <section class="author-profile-section" id="about" aria-labelledby="about-heading" data-motion="reveal" style="position: relative; overflow: hidden;">
+      <img src="assets/editorial/sun-and-moon.svg" alt="" class="editorial-cutout-item editorial-sun-moon" aria-hidden="true" data-scroll-rotate="60">
       <div class="author-avatar" aria-hidden="true">
         <img src="assets/images/avatar-github.png" alt="Snehil Pandey" class="author-avatar-img">
       </div>
@@ -354,6 +363,9 @@
 
   <!-- Unified Literary Motion Engine -->
   <script src="assets/motion/motion.js"></script>
+
+  <!-- Minimalist Editorial Motion Controller -->
+  <script src="assets/js/editorial-motion.js"></script>
 
   <!-- Shared Navigation & Homepage Catalog Engine -->
   <script src="assets/js/shared/navigation.js"></script>

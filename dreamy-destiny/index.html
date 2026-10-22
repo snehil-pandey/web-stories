@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="../assets/css/reader.css">
   <link rel="stylesheet" href="style.css?v=3.0">
   <link rel="stylesheet" href="../assets/motion/motion.css">
+  <link rel="stylesheet" href="../assets/css/editorial.css">
 
   <!-- Immediate Theme Initializer to prevent white flash -->
   <script>
@@ -50,7 +51,11 @@
   </header>
 
   <!-- Landing Page -->
-  <main class="landing-card" id="landingMain">
+  <main class="landing-card" id="landingMain" style="position: relative; overflow: hidden;">
+    <!-- Minimalist Floral Line Art -->
+    <div class="editorial-cutout-wrapper" aria-hidden="true">
+      <img src="../assets/editorial/line-art-flower.svg" alt="" class="editorial-cutout-item editorial-flower" data-editorial-float data-speed="4.5" data-dy="10" data-rot="4" data-parallax-depth="22">
+    </div>
     <header class="landing-header">
       <span class="title-badge">A Web Novel</span>
       <h1 class="main-title">Dreamy Destiny</h1>
@@ -251,6 +256,11 @@
 
     </div>
   </div>
+
+  <!-- GSAP & Editorial Motion -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="../assets/js/editorial-motion.js"></script>
 
   <!-- Shared Core Architecture -->
   <script src="../assets/js/core/storage.js"></script>

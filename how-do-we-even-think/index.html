@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="../assets/css/reader.css">
   <link rel="stylesheet" href="style.css?v=3.0">
   <link rel="stylesheet" href="../assets/motion/motion.css">
+  <link rel="stylesheet" href="../assets/css/editorial.css">
 
   <!-- Immediate Theme Initializer to prevent white flash -->
   <script>
@@ -55,7 +56,11 @@
   <div class="ambient-glow glow-2"></div>
 
   <!-- Story Presentation & Discovery Landing Card -->
-  <main class="landing-card" id="landingMain">
+  <main class="landing-card" id="landingMain" style="position: relative; overflow: hidden;">
+    <!-- Celestial Sun & Moon Line Art -->
+    <div class="editorial-cutout-wrapper" aria-hidden="true">
+      <img src="../assets/editorial/sun-and-moon.svg" alt="" class="editorial-cutout-item editorial-sun-moon" data-editorial-float data-speed="5" data-dy="12" data-rot="6" data-parallax-depth="25" data-scroll-rotate="45">
+    </div>
     <header class="landing-header">
       <span class="title-badge">A Short Mysterious Tale</span>
       <h1 class="main-title">How Do We Even Think?</h1>
@@ -208,6 +213,11 @@
       </footer>
     </div>
   </div>
+
+  <!-- GSAP & Editorial Motion -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="../assets/js/editorial-motion.js"></script>
 
   <!-- Shared Core Architecture -->
   <script src="../assets/js/core/storage.js"></script>
