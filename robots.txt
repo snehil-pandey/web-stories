@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap Index
+Sitemap: https://snehil-pandey.github.io/web-stories/sitemap.xml
